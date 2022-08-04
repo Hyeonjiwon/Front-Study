@@ -49,3 +49,23 @@ function App() {
 ``` 
 
 App.js의 구성요소가 index.html <body> 태그 내부를 채워넣는 역할
+
+## Test.js
+
+```javascript
+import React from 'react';
+
+function Test() {
+  return (
+    <h1> Hello World! - Test</h1>
+  );
+}
+
+export default Test; // 해당 컴포넌트를 다른 파일에서 import할 수 있도록
+```
+
+- function 은 컴포넌트를 생성하기위한 키워드
+- ❗️컴포넌트명은 반드시 **첫글자가 대문자**
+- return 은 화면에서 노출되길 원하는 html 
+
+- 2개 이상의 컴포넌트를 하나의 페이지에서 render할 수 없음
