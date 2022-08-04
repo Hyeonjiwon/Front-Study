@@ -1,5 +1,6 @@
 # JavaScript로 todo list 만들기
 
+
 # 기능
 - todo 추가
   - enter 키로 추가 가능
@@ -13,6 +14,7 @@
 
 - 완료
   - 완료시, 취소선
+
 
 # 결과
 
