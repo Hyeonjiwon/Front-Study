@@ -1,0 +1,145 @@
+:root {
+  --dark: #22577E;
+  --darker: #1F2937;
+  --darkest: #111827;
+  --grey: #6B7280;
+  --pink: #EC4899;
+  --purple: #8B5CF6;
+  --light: #EEE;
+  --yellow: #f4f5e4;
+  --drak-yellow: #f4f5e4;
+
+  --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+  --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+  --line: 2px solid var(--dark);
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "gothic", sans-serif;
+}
+
+body {
+  flex-direction: column;
+  min-height: 100vh;
+  color: #FFFFFF;
+  background-color: var(--dark);
+}
+
+header {
+  padding: 20px 10px;
+  max-width: 80%;
+  width: 100%;
+  margin: 10px auto;
+}
+
+header h1{ 
+  font-size: 70px;
+  color: var(--yellow);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+header p{ 
+  font-size: 25px;
+  color: var(--yellow);
+  text-align: center;
+}
+
+section {
+  flex: 1 1 0%;
+  max-width: 90%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+main {
+  padding: 20px 10px;
+  max-width: 80%;
+  width: 100%;
+  margin: 10px auto;
+}
+
+#btn-div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.w-btn {
+  position: relative;
+  border: none;
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 15px;
+  font-family: "paybooc-Light", sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.w-btn:hover {
+  letter-spacing: 1.5px;
+  transform: scale(.9);
+  cursor: pointer;
+}
+
+.w-btn:active {
+  transform: scale(1);
+}
+
+.w-btn-green {
+  background-color: #77af9c;
+  color: #f0faf6;
+}
+
+
+.w-btn-brown {
+  background-color: #ce6d39;
+  color: #ffeee4;
+}
+
+#task-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 18px;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+#task-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: center;
+}
+
+#task-table tbody tr th {
+  color: #ffffff;
+}
+
+#task-table td {
+  padding: 12px 15px;
+}
+
+#task-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+#task-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+#task-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+
+table tr td {
+  color: var(--yellow);
+  text-align: left;
+  size: 20px;
+  text-decoration: bold;
+}

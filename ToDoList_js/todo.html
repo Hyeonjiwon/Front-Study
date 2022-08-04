@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title> To-do List </title>
+    <link rel="stylesheet" href="todo.css"/>
+    <script defer src="todo.js"></script>
+</head>
+
+<body>
+    <header id = "content1">
+        <h1> My To Do List</h1>
+        <p> add your to-do List!</p>
+    </header>
+
+    <main>
+      <div id = "content2">
+        <div id="label-title-div" class="row">
+          <label id="title-label" class="col-sm-2 col-form-label-lg"> Title </label>
+          <div id ="input-title-div" class="col-sm-10">
+            <input id="new-task-title" class="form-control form-control-lg" class="col-sm-3" type="text" placeholder="Leave a title here"/>
+          </div>
+        </div>
+        <br>
+
+        <div id="input-content-div" class="row mb-3">
+          <label id="content-label" class="col-sm-2 col-form-label-lg">Content</label>
+          <div class="col-sm-10">
+            <textarea id="new-task-content" class="form-control col-sm-2 col-form-label" placeholder="Leave a content here"></textarea>
+          </div>
+        </div>
+
+      <div id = "btn-div">
+        <div id = "plus-btn-div">
+          <button type="submit" id="plus-btn" class="w-btn w-btn-green .w-btn-green-outline">Plus To-Do</button>
+        </div>
+        <div id = "clear-btn-div">
+          <button type="submit" id="clear-btn" class="w-btn w-btn-brown">Clear</button>
+        </div>
+      </div>
+     </div>
+
+      <div id = "content3">
+        <script type="text/javascript">
+          const rowCnt = 10;
+          const columnCnt = 6;
+
+          document.write('<table class="table" id = "task-table">');
+          document.write('<thed><tr>');
+          document.write('<th scope="col">No</th>');
+          document.write('<th scope="col">Check</th>');
+          document.write('<th scope="col">Title</th>');
+          document.write('<th scope="col">Content</th>');
+          document.write('<th scope="col">Date of register</th>');
+          document.write('<th scope="col">Edit</th>');
+          document.write('<th scope="col">Delete</th>');
+          document.write('</tr></thead>');
+
+          document.write('<tbody id = "task-table-body">');
+          for (let i = 0; i < rowCnt; i++) {
+            document.write('<tr ' + 'id = ' + i + '>');
+            document.write('<th scope="row">' + (i+1) + '</th>')
+            for (let j = 0; j < columnCnt; j++)  {
+                document.write('<td ' + 'id = ' + i + j +  '>');
+                document.write('</td>');
+          }
+          document.write('</tr>')
+          }
+          document.write('</tbody>');
+          document.write('</table>');
+        </script>
+      </div>
+    </main>
+</body>
+</html>
