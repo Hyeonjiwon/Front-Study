@@ -7,9 +7,6 @@ const task_table_body = document.getElementById('task-table-body');
 let todo_items = [];
 let checked;
 
-console.log(getCurrentDate());
-
-
 /********** 버튼 이벤트 **********/
 
 // 내용 입력 후 enter하면 add
