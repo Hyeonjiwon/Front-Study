@@ -69,3 +69,35 @@ export default Test; // 해당 컴포넌트를 다른 파일에서 import할 수
 - return 은 화면에서 노출되길 원하는 html 
 
 - 2개 이상의 컴포넌트를 하나의 페이지에서 render할 수 없음
+
+## 다수 컴포넌트 render 하는 법
+
+1. div 태그로 감싸주기
+```javascript
+root.render(
+  <React.StrictMode>
+    <div>
+      <App />
+      <Test />
+    </div>
+  </React.StrictMode>
+);
+```
+
+2. A 컴포넌트에 B 컴포넌트 포함시키기
+```javascript
+import logo from './logo.svg';
+import './App.css';
+import Test from './Test'
+
+function App() {
+  return (
+    <div>
+      Hello World!
+      <Test />
+    </div>
+  );
+}
+
+export default App;
+```
