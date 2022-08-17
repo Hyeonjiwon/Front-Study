@@ -6,8 +6,8 @@ function App() {
   return (
     <div>
       App
-      <Test myParam="mydata1"/>
-      <Test myParam="mydata2"/>
+      <Test myParam="First animal" animal="dog"/>
+      <Test myParam="Second animal" animal="cat"/>
     </div>
   );
 }
