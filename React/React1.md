@@ -50,7 +50,7 @@ function App() {
 
 App.js의 구성요소가 index.html <body> 태그 내부를 채워넣는 역할
 
-## Test.js
+### Test.js
 
 ```javascript
 import React from 'react';
@@ -70,7 +70,8 @@ export default Test; // 해당 컴포넌트를 다른 파일에서 import할 수
 
 - 2개 이상의 컴포넌트를 하나의 페이지에서 render할 수 없음
 
-## 다수 컴포넌트 render 하는 법
+
+## 05. 다수 컴포넌트 render 하는 법
 
 1. div 태그로 감싸주기
 ```javascript
@@ -103,13 +104,13 @@ export default App;
 ```
 
 
-## JSX
+## 06. JSX
 
 - HTML + Javascript 조합
 - React는 컴포넌트 단위 => 컴포넌트는 JSX로 구성
 - js는 JSX를 분석하여 HTML 태그 생성
 
-## JSX 규칙
+### JSX 규칙
 1. 컴포넌트는 반드시 태그로 감싸야함
 ```javascript
 function Test() {
@@ -146,7 +147,7 @@ function Test(){
 }
 ```
 
-## props - 데이터 전달 방식
+## 07. props - 데이터 전달 방식
 - index.js
 ```javascript
 import React from 'react';
@@ -325,3 +326,98 @@ export default App;
 ```
 
 - props를 그대로 받아 사용하려면, 매개변수로 받을 때, {}를 통해 받음
+
+
+## 08. 복수 props
+#### 1.전달하는 쪽 컴포넌트 (=부모 컴포넌트)
+
+부모 컴포넌트에서 복수 개의 props 를 넘기는 방법
+
+- 단일 props
+```javascript
+<Test myParam="First animal"/>
+<Test myParam="Second animal"/>
+```
+
+```javascript
+<Test myParam="First animal" animal="dog"/>
+<Test myParam="Second animal" animal="cat"/>
+```
+
+❗️복수 props의 경우, 콤마(,) 없이 띄어쓰기로 구분
+❗️문자열이 아닌 숫자 or boolean형을 넘길 경우, 큰따옴표("")없이 중괄호({}) 사용
+
+```javascript
+<Test myParam="Third animal" animal="cow" number={1}/>
+<Test myParam="Third animal" animal="cow" flagTrue={true} flasgFalse={false} abc="aa"/>
+```
+
+```javascript
+import logo from './logo.svg';
+import './App.css';
+import Test from './Test'
+
+function App() {
+  return (
+    <div>
+      App
+      <Test myParam="First animal" animal="dog"/>
+      <Test myParam="Second animal" animal="cat"/>
+    </div>
+  );
+}
+
+export default App;
+```
+
+#### 2. 전달받은 쪽 컴포넌트 (=자식 컴포넌트)
+매개변수를 받는 두가지 방법
+
+1. props 명으로 받는 경우
+- Test.js
+```javascript
+import React from 'react';
+
+function Test({myParam, animal}) {
+  console.log({myParam, animal});
+
+  return (
+    <div> 
+      {myParam} : {animal} 
+    </div>
+  );
+}
+
+export default Test;
+```
+
+<img width="1085" alt="스크린샷 2022-08-17 오후 10 49 32" src="https://user-images.githubusercontent.com/47733530/185150945-ff52828a-d932-44eb-b52b-15f3f4274005.png">
+
+
+=> 매개변수명은 반드시 부모 컴포넌트의 props key값과 동일애햐 함
+
+❗️props 를 사용할 때, 반드시 **중괄호{}**를 붙여줘야 함, 안붙이면 일반 문자열로 인식
+
+
+2. 일반 변수로 받는 경우
+3. 
+- Test.js
+```javascript
+import React from 'react';
+
+function Test(data) {
+  console.log(data);
+
+  return (
+    <div> 
+      {data.myParam} : {data.animal} 
+    </div>
+  );
+}
+
+export default Test;
+```
+<img width="1083" alt="스크린샷 2022-08-17 오후 10 50 16" src="https://user-images.githubusercontent.com/47733530/185151129-5cdccce1-a5d6-47c4-91fd-6b76be3bca5f.png">
+
+=> 하나의 변수로 가져올 땐 객체형태로 담아오기 때문에 변수명은 무관
+, 그 안에 데이터를 사용할 땐 부모 컴포넌트의 props key명을 사용해야 함
