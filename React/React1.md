@@ -145,3 +145,5 @@ function Test(){
 	);
 }
 ```
+
+## props - 데이터 전달 방식
