@@ -101,3 +101,47 @@ function App() {
 
 export default App;
 ```
+
+
+## JSX
+
+- HTML + Javascript 조합
+- React는 컴포넌트 단위 => 컴포넌트는 JSX로 구성
+- js는 JSX를 분석하여 HTML 태그 생성
+
+## JSX 규칙
+1. 컴포넌트는 반드시 태그로 감싸야함
+```javascript
+function Test() {
+  return(
+    <div> Hi </div>
+    
+    // 어떤 태그로도 감싸고 싶지 않다면 Fragment 사용 
+    <Fragment> Hi </Fragment>
+  );
+}
+```
+
+2. className 사용
+"class= " 가 아닌 className 사용
+```javascript
+function Test() {
+  return(
+    <div className="myDiv"> Hi </div>
+  );
+}
+```
+
+3. 단독태그 사용 불가
+
+```javascript
+function Test(){
+	return (
+		<div>
+			Hello World
+      <input></input>
+      <br></br>
+			</div>
+	);
+}
+```
