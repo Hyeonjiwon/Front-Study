@@ -1,8 +1,11 @@
 import React from 'react';
 
-function Test() {
+function Test(data) {
+  console.log(JSON.stringify(data));
+  const {myParam} = data
+  
   return (
-    <h1> Test </h1>
+    <div> Test {myParam}</div>
   );
 }
 

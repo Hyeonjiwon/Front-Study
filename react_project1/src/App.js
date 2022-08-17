@@ -6,7 +6,8 @@ function App() {
   return (
     <div>
       App
-      <Test />
+      <Test myParam="mydata1"/>
+      <Test myParam="mydata2"/>
     </div>
   );
 }
