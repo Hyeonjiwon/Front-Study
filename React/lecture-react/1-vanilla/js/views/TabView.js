@@ -1,4 +1,4 @@
-import { delegate, qs, qsAll } from "../helpers.js";
+import { qs, qsAll } from "../helpers.js";
 import View from "./View.js";
 
 const tag = "[TabView]";
@@ -20,24 +20,13 @@ export default class TabView extends View {
     super(qs("#tab-view"));
 
     this.template = new Template();
-    this.bindEvents();
   }
 
-  bindEvents() {
-    delegate(this.element, "click", "li", (event) => this.handleClick(event));
-  }
-
-  handleClick(event) {
-    console.log(tag, "handleClick", event.target.dataset.tab);
-
-    const value = event.target.dataset.tab;
-    this.emit("@change", { value });
-  }
-
-  show(selectedTab) {
+  show(selectedTab) { // model이 selecteTab 정보를 가지고 있어야 함
     this.element.innerHTML = this.template.getTabList();
-    qsAll("li", this.element).forEach((li) => {
-      li.className = li.dataset.tab == selectedTab ? "active" : "";
+    
+    qsAll("li", this.element).forEach(li => {
+      li.className = li.dataset.tab === selectedTab ? "active" : "";
     });
 
     super.show();
