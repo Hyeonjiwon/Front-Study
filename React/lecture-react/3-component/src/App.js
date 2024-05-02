@@ -41,20 +41,20 @@ export default class App extends React.Component {
   }
 
   render() {
-    const {} = this.state;
+    const { searchKeyword, searchResult, submitted } = this.state;
 
     return (
       <>
         <Header title="검색" />
         <div className="container">
           <SearchForm 
-            value={this.state.searchKeyword}
+            value={searchKeyword}
             onChange={(value) => this.handleChangeInput(value)}
-            onSubmit={() => this.search(this.state.searchKeyword)}
+            onSubmit={() => this.search(searchKeyword)}
             onReset={() => this.handelReset()}
           /> 
           <div className="content">
-            {this.state.submitted && <SearchResult data={this.state.searchResult} />}
+            { submitted && <SearchResult data={searchResult} /> }
           </div>
         </div>
       </>
