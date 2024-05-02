@@ -1,16 +1,17 @@
 import React from "react";
 import Header from "./components/Header.js";
 import SearchForm from "./components/SearchForm.js";
+import SearchResult from "./components/SearchResult.js";
+import store from "./Store.js";
 
 export default class App extends React.Component {
   constructor() {
     super();
 
     this.state = { 
-      // SearchForm 컴포넌트 내부에 갖혀 있는 상태
-      // 여러 컴포넌트가 동일한 데이터에 의존하고 있음
-      // 이런 경우 가까운 부모 컴포넌트로 state를 끌어올리는 것이 좋다. => App.js로 이동
       searchKeyword: "",  
+      searchResult: [], // 검색 결과
+      submitted: false, // 검색 유무
     };
   }
 
@@ -23,14 +24,25 @@ export default class App extends React.Component {
   }
   
   search(searchKeyword) {
-    console.log("TODO: search", this.state.searchKeyword);
+    const searchResult = store.search(searchKeyword);
+    this.setState({
+      searchResult,
+      submitted: true,
+    })
   }
 
   handelReset() {
-    console.log("TODO: handleReset");
+    // 초기화
+    this.setState({
+      searchKeyword: "",
+      searchResult: [],
+      submitted: false,
+    })
   }
 
   render() {
+    const {} = this.state;
+
     return (
       <>
         <Header title="검색" />
@@ -38,9 +50,12 @@ export default class App extends React.Component {
           <SearchForm 
             value={this.state.searchKeyword}
             onChange={(value) => this.handleChangeInput(value)}
-            onSubmit={(searchKeyword) => this.search(searchKeyword)}
+            onSubmit={() => this.search(this.state.searchKeyword)}
             onReset={() => this.handelReset()}
           /> 
+          <div className="content">
+            {this.state.submitted && <SearchResult data={this.state.searchResult} />}
+          </div>
         </div>
       </>
     );
