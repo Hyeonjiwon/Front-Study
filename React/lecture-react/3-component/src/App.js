@@ -3,6 +3,7 @@ import Header from "./components/Header.js";
 import SearchForm from "./components/SearchForm.js";
 import SearchResult from "./components/SearchResult.js";
 import store from "./Store.js";
+import Tabs, { TabType } from "./components/Tabs.js";
 
 export default class App extends React.Component {
   constructor() {
@@ -12,6 +13,7 @@ export default class App extends React.Component {
       searchKeyword: "",  
       searchResult: [], // 검색 결과
       submitted: false, // 검색 유무
+      selectedTab: TabType.KEYWORD, // 선택된 Tab
     };
   }
 
@@ -41,7 +43,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { searchKeyword, searchResult, submitted } = this.state;
+    const { searchKeyword, searchResult, submitted, selectedTab } = this.state;
 
     return (
       <>
@@ -54,7 +56,19 @@ export default class App extends React.Component {
             onReset={() => this.handelReset()}
           /> 
           <div className="content">
-            { submitted && <SearchResult data={searchResult} /> }
+            {/* 폼이 제출 되면 검색 결과가 보이고, 아니면 탭이 보여야 함 */}
+            { submitted 
+                ? <SearchResult data={searchResult} /> 
+                : <>
+                    {/* state가 변경 되면 render 메소드를 다시 실행 */}
+                    <Tabs 
+                      selectedTab={selectedTab} 
+                      onChange={(selectedTab) => this.setState({selectedTab})}
+                    />
+                    {selectedTab === TabType.KEYWORD && <>TODO: 추천 검색어</>}
+                    {selectedTab === TabType.HISTORY && <>TODO: 최근 검색어</>}
+                  </>
+            }
           </div>
         </div>
       </>
