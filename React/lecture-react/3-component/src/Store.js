@@ -46,7 +46,7 @@ class Store {
   }
 
   _sortHistory(history1, history2) {
-    return history2.date > history1.date;
+    return history2.date - history1.date; // 내림차순 정렬
   }
 
   removeHistory(keyword) {

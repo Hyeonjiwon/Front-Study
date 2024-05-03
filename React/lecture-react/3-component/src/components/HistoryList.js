@@ -8,6 +8,10 @@ export default class HistoryList extends List {
     // React.Component componentDidMount 오버라이딩
     // 컴포넌트가 DOM에 마운트 된 직후에 호출
     componentDidMount() {
+        this.fetch(); // 리팩토링
+    }
+
+    fetch() {
         const data = store.getHistoryList();
 
         this.setState({
@@ -21,14 +25,10 @@ export default class HistoryList extends List {
         event.stopPropagation();;
         store.removeHistory(keyword);
 
-        const data = store.getHistoryList();
-
-        this.setState({
-            data,  // store에서 키워드 목록을 가져와 state로 업데이트하고 render 함수 호출 -> 이때 자식의 renderItem이 호출
-        })
+        this.fetch();
     }
 
-    renderItem(item, index) {
+    renderItem(item) {
         return (
             <>
                 <span className="date">{formatRelativeDate(item.date)}</span>
