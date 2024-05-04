@@ -24,17 +24,8 @@ export default class KeywordList extends React.Component {
       return (
         <List 
             data={this.state.keywordList} 
-            onClick={this.props.onClick} 
-            renderItem={(item, index) => { // Render Props = ui를 그리는 용도로 사용하는 props 
-                // 사용하는 측에서 React Element({})를 사용하도록 했기 때문에 
-                // React Element를 반환해야 함
-                return (
-                    <>
-                        <span className="number">{index + 1}</span>
-                        <span>{item.keyword}</span>
-                    </>
-                )
-            }}
+            onClick={this.props.onClick}
+            hasIndex={true}
         />
       )
     }

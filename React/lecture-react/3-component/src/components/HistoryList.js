@@ -18,12 +18,8 @@ export default class HistoryList extends React.Component {
         this.fetch();
     }
 
-    handleClickRemoveHistory(event, keyword) {
-        // 이벤트 전파 막기
-        // List에 li 엘리먼트도 핸들러가 있기 때문에 차단
-        event.stopPropagation();;
+    handleClickRemove(keyword) {
         store.removeHistory(keyword);
-
         this.fetch();
     }
 
@@ -39,16 +35,9 @@ export default class HistoryList extends React.Component {
         return (
             <List 
                 data={this.state.historyList}
-                onClick={this.props.onClick}
-                renderItem={(item) => {
-                    return (
-                        <>
-                            <span className="date">{formatRelativeDate(item.date)}</span>
-                            <span>{item.keyword}</span>
-                            <button type="reset" className="btn-reset" onClick={(event) => this.handleClickRemoveHistory(event, item.keyword)}></button>
-                        </>
-                    )
-                }}
+                onClick= {this.props.onClick}
+                hasDate={true}
+                onRemove={(keyword) => this.handleClickRemove(keyword)}
             />
         )
     }
