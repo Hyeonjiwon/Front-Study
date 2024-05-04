@@ -14,6 +14,7 @@ export default class KeywordList extends React.Component {
         }
     }
 
+    // React.Component componentDidMount 오버라이딩
     componentDidMount() {
         const keywordList = store.getKeywordList();
         this.setState({ keywordList });
