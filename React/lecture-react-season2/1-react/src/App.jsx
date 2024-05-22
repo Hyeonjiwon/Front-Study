@@ -1,3 +1,4 @@
+import Page from "./components/Page";
 import Navbar from "./components/Navbar";
 import ProductItem from "./components/ProductItem";
 import Title from "./components/Title";
@@ -11,21 +12,14 @@ const fakeProduct = {
 
 const App = () => (
   <div className="ProductPage">
-    <div className="Page">
-      <header>
-        <Title>메뉴목록</Title>
-      </header>
-      <main>
-        <ul>
-          <li>
-            <ProductItem product={fakeProduct} />
-          </li>
-        </ul>
-      </main>
-      <footer>
-        <Navbar />
-      </footer>
-    </div>
+    <Page header={<Title>메뉴 목록</Title>} footer={<Navbar />}>
+      {/* main에 들어가는 children */}
+      <ul>
+        <li>
+          <ProductItem product={fakeProduct} />
+        </li>
+      </ul>
+    </Page>
   </div>
 );
 
