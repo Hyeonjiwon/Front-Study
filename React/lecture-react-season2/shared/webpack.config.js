@@ -11,7 +11,7 @@ module.exports = {
     clean: true,
   },
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: ["", ".js", ".jsx", ".css"],
   },
   devtool: "source-map",
   devServer: {
@@ -26,6 +26,10 @@ module.exports = {
         use: {
           loader: "babel-loader",
         },
+      },
+      {
+        test: /\.(sass|css)$/,
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
