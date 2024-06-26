@@ -26,11 +26,8 @@ const OrderPage = () => (
   <>
     <Page header={<Title>주문내역</Title>} footer={<Navbar />}>
       <OrderStatusCard order={fakeOrder} />
-      <br />
       <OrderPaymentCard order={fakeOrder} />
-      <br />
       <OrderDeliveryCard order={fakeOrder} />
-      <br />
     </Page>
   </>
 );

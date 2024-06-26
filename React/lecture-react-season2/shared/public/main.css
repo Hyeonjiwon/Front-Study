@@ -264,6 +264,7 @@ code {
 .Card {
   background-color: #fff;
   padding: 24px 16px;
+  margin-bottom: 0.5rem;
 }
 .Card > header {
   display: block;
