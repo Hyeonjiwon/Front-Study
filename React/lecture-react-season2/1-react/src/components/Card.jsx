@@ -1,6 +1,6 @@
 const Card = ({ header, data = [], footer }) => (
   <div className="Card">
-    <header>{header}</header>
+    {header && <header>{header}</header>}
     <main>
       {data.map(({ term, description }) => (
         <dl key={term}>
@@ -9,7 +9,7 @@ const Card = ({ header, data = [], footer }) => (
         </dl>
       ))}
     </main>
-    <footer>{footer}</footer>
+    {footer && <footer>{footer}</footer>}
   </div>
 );
 
