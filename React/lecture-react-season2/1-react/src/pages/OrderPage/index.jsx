@@ -1,7 +1,7 @@
 import Navbar from "../../components/Navbar";
-import OrderDeliveryCard from "../../components/OrderDeliveryCard";
-import OrderPaymentCard from "../../components/OrderPaymentCard";
-import OrderStatusCard from "../../components/OrderStatusCard";
+import OrderDeliveryCard from "./OrderDeliveryCard";
+import OrderPaymentCard from "./OrderPaymentCard";
+import OrderStatusCard from "./OrderStatusCard";
 import Page from "../../components/Page";
 import Title from "../../components/Title";
 
