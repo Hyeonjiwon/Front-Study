@@ -4,6 +4,8 @@ import OrderPaymentCard from "./OrderPaymentCard";
 import OrderStatusCard from "./OrderStatusCard";
 import Page from "../../components/Page";
 import Title from "../../components/Title";
+import React from "react";
+import OrderApi from "shared/api/OrderApi";
 
 const fakeOrder = {
   id: "CACDA420",
@@ -22,14 +24,41 @@ const fakeOrder = {
   position: [30, 30],
 };
 
-const OrderPage = () => (
-  <>
-    <Page header={<Title>주문내역</Title>} footer={<Navbar />}>
-      <OrderStatusCard order={fakeOrder} />
-      <OrderPaymentCard order={fakeOrder} />
-      <OrderDeliveryCard order={fakeOrder} />
-    </Page>
-  </>
-);
+class OrderPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      order: null,
+    };
+  }
+
+  async fetch() {
+    try {
+      const order = await OrderApi.fetchMyOrder();
+      this.setState({ order });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  componentDidMount() {
+    this.fetch();
+  }
+
+  render() {
+    const { order } = this.state;
+    return (
+      <Page header={<Title>주문내역</Title>} footer={<Navbar />}>
+        {order && (
+          <>
+            <OrderStatusCard order={order} />
+            <OrderPaymentCard order={order} />
+            <OrderDeliveryCard order={order} />
+          </>
+        )}
+      </Page>
+    );
+  }
+}
 
 export default OrderPage;
