@@ -1,0 +1,33 @@
+{
+  "name": "lecture-react-season2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "1-react": "npm start --workspace 1-react",
+    "2-hook": "npm start --workspace 2-hook"
+  },
+  "keywords": [],
+  "author": "Jeonghwan Kim <ej88ej@gmail.com>",
+  "license": "ISC",
+  "engines": {
+    "node": ">=16.20.0",
+    "nvm": ">=8.19.4"
+  },
+  "engineStrict": true,
+  "workspaces": [
+    "1-react",
+    "2-hook",
+    "shared"
+  ],
+  "msw": {
+    "workerDirectory": "shared/public"
+  },
+  "dependencies": {
+    "css-loader": "^7.1.2",
+    "moment": "^2.30.1",
+    "react-datepicker": "^7.0.0",
+    "style-loader": "^4.0.0",
+    "styled-components": "^6.1.11"
+  }
+}
