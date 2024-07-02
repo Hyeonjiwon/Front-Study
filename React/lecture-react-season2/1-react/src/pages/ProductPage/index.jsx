@@ -35,7 +35,7 @@ class ProductPage extends React.Component {
           <ul>
             {this.state.productList.map((product) => (
               <li key={product.id}>
-                <ProductItem product={product} />
+                <ProductItem product={product} onClick />
               </li>
             ))}
           </ul>

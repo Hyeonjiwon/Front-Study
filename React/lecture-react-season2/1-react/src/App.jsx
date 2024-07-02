@@ -4,8 +4,8 @@ import CartPage from "./pages/CartPage";
 
 const App = () => (
   <>
-    {/* <ProductPage />; */}
-    {/* <OrderPage /> */}
+    {/* <ProductPage />
+    <OrderPage /> */}
     <CartPage />
   </>
 );
