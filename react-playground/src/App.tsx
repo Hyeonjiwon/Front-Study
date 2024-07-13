@@ -1,19 +1,12 @@
 import React from "react";
-import Button from "@mui/material/Button";
+import Login from "./Login";
 
 const App: React.FC = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
-      <Button variant="contained" color="primary">
-        Hello World
-      </Button>
+    <div className="App">
+      <header className="App-header">
+        <Login />
+      </header>
     </div>
   );
 };
