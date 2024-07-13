@@ -1,13 +1,22 @@
 import React from "react";
-import Login from "./Login";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Main from "./pages/Main";
+import SampleComponent from "./pages/SampleComponentPage";
+import SampleLoginPage from "./pages/SampleLoginPage";
+import SampleQueryPage from "./pages/SampleQueryPage";
 
-const App: React.FC = () => {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Login />
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/sample-component" element={<SampleComponent />} />
+          <Route path="/sample-login" element={<SampleLoginPage />} />
+          <Route path="/sample-query" element={<SampleQueryPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
