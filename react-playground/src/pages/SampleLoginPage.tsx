@@ -6,9 +6,30 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    alert(`Username: ${username}, Password: ${password}`);
-    // 실제 로그인 처리 로직을 여기에 구현할 수 있습니다.
+  const handleLogin = async () => {
+    if (!username || !password) {
+      alert("사용자 이름과 비밀번호를 입력해주세요.");
+      return;
+    }
+
+    // TODO: 서버에 요청을 보내고, 응답 처리
+    try {
+      alert(`Username: ${username}, Password: ${password}`);
+
+      // 서버에 요청을 보내는 예시
+      // const response = await fetch('http://yourserver.com/login', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ username, password }),
+      // });
+      // const data = await response.json();
+      // console.log(data); // 서버 응답을 확인하거나 상태를 변경하는 등의 작업을 수행
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("로그인에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
