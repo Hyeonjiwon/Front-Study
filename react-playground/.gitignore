@@ -40,3 +40,4 @@ logs/
 
 # Parcel 관련 파일
 .cache/
+.parcel-cache/
