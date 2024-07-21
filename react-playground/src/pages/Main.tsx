@@ -13,7 +13,7 @@ const Main = () => {
           <Link to="/sample-login">sample login</Link>
         </li>
         <li>
-          <Link to="/sample-query">sample retreive</Link>
+          <Link to="/sample-search">sample search</Link>
         </li>
       </ul>
     </div>
