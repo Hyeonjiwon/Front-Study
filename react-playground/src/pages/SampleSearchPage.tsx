@@ -10,35 +10,65 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 
+interface JobPost {
+  busplaName: string;
+  cntctNo: string;
+  compAddr: string;
+  empType: string;
+  enterType: string;
+  jobNm: string;
+  offerregDt: string;
+  regDt: string;
+  regagnName: string;
+  reqCareer: string;
+  reqEduc: string;
+  rno: string;
+  rnum: string;
+  salary: string;
+  salaryType: string;
+  termDate: string;
+  reqMajor?: string;
+  envBothHands: string;
+  envEyesight: string;
+  envLiftPower: string;
+  envLstnTalk: string;
+  envStndWalk: string;
+  envHandwork: string;
+  reqLicens?: string;
+}
+
 const SampleSearchPage: React.FC = () => {
-  const [data, setData] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const [jobPosts, setJobPosts] = useState<JobPost[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    fetchData();
+    axios
+      .get("http://127.0.0.1:8000/job_posts/")
+      .then((response) => {
+        setJobPosts(response.data.job_posts);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
-  const fetchData = async () => {
-    try {
-      // MongoDB에서 데이터를 조회하는 API 엔드포인트를 호출합니다.
-      const response = await axios.get("http://your-api-endpoint/data"); // 데이터 조회 API의 실제 URL을 입력하세요
-
-      // API에서 받아온 데이터를 state에 저장합니다.
-      setData(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   const handleSearch = async () => {
     try {
       // 검색어를 이용하여 MongoDB에서 데이터를 조회하는 API 엔드포인트를 호출합니다.
       const response = await axios.get(
-        `http://your-api-endpoint/data?search=${searchTerm}`
+        `http://localhost:8000/job_posts/data?search=${searchTerm}`
       ); // 검색 API의 실제 URL을 입력하세요
 
       // API에서 받아온 데이터를 state에 저장합니다.
-      setData(response.data);
+      setJobPosts(response.data);
     } catch (error) {
       console.error("Error searching data:", error);
     }
@@ -61,37 +91,35 @@ const SampleSearchPage: React.FC = () => {
       >
         Search
       </Button>
-
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Column 1</TableCell>
-              <TableCell>Column 2</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>사업장명</TableCell>
+              <TableCell>사업장 주소</TableCell>
+              <TableCell>고용 형태</TableCell>
+              <TableCell>모집 직종</TableCell>
+              <TableCell>임금 형태</TableCell>
+              <TableCell>임금</TableCell>
+              <TableCell>양손</TableCell>
+              <TableCell>시력</TableCell>
+              <TableCell>드는힘</TableCell>
+              <TableCell>모집 기간</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item) => (
-              <TableRow key={item._id}>
-                <TableCell>{item.column1}</TableCell>
-                <TableCell>{item.column2}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    // onClick={() => handleEdit(item)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    // onClick={() => handleDelete(item)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
+            {jobPosts.map((item, index) => (
+              <TableRow key={index}>
+                <TableCell>{item.busplaName}</TableCell>
+                <TableCell>{item.compAddr}</TableCell>
+                <TableCell>{item.empType}</TableCell>
+                <TableCell>{item.jobNm}</TableCell>
+                <TableCell>{item.salaryType}</TableCell>
+                <TableCell>{item.salary}</TableCell>
+                <TableCell>{item.envBothHands}</TableCell>
+                <TableCell>{item.envEyesight}</TableCell>
+                <TableCell>{item.envLiftPower}</TableCell>
+                <TableCell>{item.termDate}</TableCell>
               </TableRow>
             ))}
           </TableBody>
