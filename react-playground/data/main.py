@@ -5,6 +5,7 @@ from typing import List, Optional
 import certifi
 import motor.motor_asyncio
 from bson import ObjectId
+from dotenv import load_dotenv  # Add this import
 from fastapi import Body, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
@@ -15,8 +16,16 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from typing_extensions import Annotated
 
+# Load environment variables from .env file
+load_dotenv()
+
+# Get the MongoDB URI from environment variables
 ca = certifi.where()
-uri = "MONGODB_URL" + "&tlsCAFile=" + ca
+base_uri = os.getenv("MONGODB_URI")
+if not base_uri:
+    raise ValueError("MONGODB_URI environment variable is not set")
+
+uri = f"{base_uri}?retryWrites=true&w=majority&appName=Cluster0&tlsCAFile={ca}"
 
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
@@ -27,16 +36,18 @@ try:
     print("Pinged your deployment. You successfully connected to MongoDB!")
 except Exception as e:
     print(e)
-    
+
 app = FastAPI(
     title="Job Posts API",
     summary="A sample application showing how to use FastAPI to add a REST API to a MongoDB collection.",
 )
 
 # CORS 설정 추가
-origins = [
-    "http://localhost:4000",  # React 애플리케이션이 실행되는 주소
-]
+origins = os.getenv("CORS_ORIGINS", "").split(",")
+if not origins:
+    origins = ["http://localhost:4000",
+               "http://localhost:1234"]  # Default origins
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -50,6 +61,7 @@ db = client.get_database("InAbleDB")
 job_post_collection = db.get_collection("job_posts")
 
 PyObjectId = Annotated[str, BeforeValidator(str)]
+
 
 class JobPostModel(BaseModel):
     id: Optional[PyObjectId] = Field(alias="_id", default=None)
@@ -77,10 +89,12 @@ class JobPostModel(BaseModel):
     envStndWalk: str
     # envHandwork: str
     reqLicens: Optional[str]
-    
+
+
 class JobPostCollection(BaseModel):
     job_posts: List[JobPostModel]
-    
+
+
 @app.get(
     "/job_posts/",
     response_description="List all job posts",
@@ -96,4 +110,4 @@ async def list_job_posts():
     job_posts = list(job_post_collection.find())
     return JobPostCollection(job_posts=job_posts)
 
-# uvicorn api:app --reload
+# uvicorn main:app --reload
