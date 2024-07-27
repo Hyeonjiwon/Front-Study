@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableBody from "@mui/material/TableBody";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
+import TextField from "@mui/material/TextField";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import DynamicTable from "../components/DynamicTable";
 
 interface JobPost {
   busplaName: string;
@@ -39,16 +33,16 @@ interface JobPost {
 
 const SampleSearchPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
-
   const [jobPosts, setJobPosts] = useState<JobPost[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // MongoDB에서 데이터를 조회하는 API 엔드포인트 호출
     axios
       .get("http://127.0.0.1:8000/job_posts/")
       .then((response) => {
-        setJobPosts(response.data.job_posts);
+        setJobPosts(response.data.job_posts); // API에서 받아온 데이터를 state에 저장
         setLoading(false);
       })
       .catch((err) => {
@@ -74,6 +68,19 @@ const SampleSearchPage: React.FC = () => {
     }
   };
 
+  const columns = [
+    { id: "busplaName", label: "사업장명" },
+    { id: "compAddr", label: "사업장 주소" },
+    { id: "empType", label: "고용 형태" },
+    { id: "jobNm", label: "모집 직종" },
+    { id: "salaryType", label: "임금 형태" },
+    { id: "salary", label: "임금" },
+    { id: "envBothHands", label: "양손" },
+    { id: "envEyesight", label: "시력" },
+    { id: "envLiftPower", label: "드는힘" },
+    { id: "termDate", label: "모집 기간" },
+  ];
+
   return (
     <div style={{ padding: 20 }}>
       <TextField
@@ -91,40 +98,7 @@ const SampleSearchPage: React.FC = () => {
       >
         Search
       </Button>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>사업장명</TableCell>
-              <TableCell>사업장 주소</TableCell>
-              <TableCell>고용 형태</TableCell>
-              <TableCell>모집 직종</TableCell>
-              <TableCell>임금 형태</TableCell>
-              <TableCell>임금</TableCell>
-              <TableCell>양손</TableCell>
-              <TableCell>시력</TableCell>
-              <TableCell>드는힘</TableCell>
-              <TableCell>모집 기간</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {jobPosts.map((item, index) => (
-              <TableRow key={index}>
-                <TableCell>{item.busplaName}</TableCell>
-                <TableCell>{item.compAddr}</TableCell>
-                <TableCell>{item.empType}</TableCell>
-                <TableCell>{item.jobNm}</TableCell>
-                <TableCell>{item.salaryType}</TableCell>
-                <TableCell>{item.salary}</TableCell>
-                <TableCell>{item.envBothHands}</TableCell>
-                <TableCell>{item.envEyesight}</TableCell>
-                <TableCell>{item.envLiftPower}</TableCell>
-                <TableCell>{item.termDate}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <DynamicTable columns={columns} data={jobPosts} />
     </div>
   );
 };
