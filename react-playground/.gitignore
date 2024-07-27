@@ -41,3 +41,8 @@ logs/
 # Parcel 관련 파일
 .cache/
 .parcel-cache/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
