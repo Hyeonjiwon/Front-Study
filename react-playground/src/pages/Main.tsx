@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 
@@ -17,6 +16,9 @@ const Main = () => {
           </li>
           <li>
             <Link to="/sample-search">sample search</Link>
+          </li>
+          <li>
+            <Link to="/sample-map">sample map</Link>
           </li>
         </ul>
       </div>
