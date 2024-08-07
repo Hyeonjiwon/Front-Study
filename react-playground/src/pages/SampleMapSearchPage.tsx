@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import JobPostMap from "../components/JobPostMap";
 import { JobPostDataType } from "../types/JobPostDataType";
@@ -7,46 +8,28 @@ const SampleMapSearchPage = () => {
   const [jobPostData, setJobPostData] = useState<JobPostDataType[]>([]);
 
   useEffect(() => {
-    const mapDiv = document.getElementById("map") as HTMLElement;
-    const map = new window.naver.maps.Map(mapDiv, {
-      center: new window.naver.maps.LatLng(37.5665, 126.978),
-      zoom: 10,
-    });
+    // API 호출 함수
+    const fetchJobPostData = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/job_posts/");
+        const data = response.data;
 
-    new window.naver.maps.Marker({
-      position: new window.naver.maps.LatLng(37.5665, 126.978),
-      map: map,
-    });
+        // 받아온 데이터를 원하는 형식으로 변환
+        const transformedData = data["job_posts"].map((item: any) => ({
+          _id: item.id,
+          title: item.busplaName,
+          address: { area: item.compAddr, fullAddress: item.compAddr },
+          lat: parseFloat(item.latitude),
+          lng: parseFloat(item.longitude),
+        }));
 
-    let jobPost = [
-      {
-        _id: "1",
-        title: "Sample Location 1",
-        address: { area: "중구", fullAddress: "서울특별시 중구 세종대로 110" },
-        lat: 37.5665,
-        lng: 126.978,
-      },
-      {
-        _id: "2",
-        title: "Sample Location 2",
-        address: { area: "종로구", fullAddress: "서울특별시 종로구 종로 1" },
-        lat: 37.5702,
-        lng: 126.982,
-      },
-      {
-        _id: "3",
-        title: "Sample Location 3",
-        address: {
-          area: "종로구",
-          fullAddress: "서울특별시 종로구 청계천로 1",
-        },
-        lat: 37.5719,
-        lng: 126.976,
-      },
-    ];
+        setJobPostData(transformedData);
+      } catch (error) {
+        console.error("Failed to fetch job post data:", error);
+      }
+    };
 
-    setJobPostData(jobPost);
-
+    fetchJobPostData();
     setSearchKeyword("서울시 마포구");
   }, []);
 
@@ -56,7 +39,6 @@ const SampleMapSearchPage = () => {
   return (
     <>
       <h1>지도</h1>
-      {/* <div id="map" style={{ width: "100%", height: "100vh" }} /> */}
       <br></br>
       <JobPostMap coordinates={initialCoordinates} jobPostData={jobPostData} />
     </>
