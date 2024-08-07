@@ -14,7 +14,7 @@ const renderApp = () => {
 
 if (naverMapClientId) {
   const script = document.createElement("script");
-  script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${naverMapClientId}`;
+  script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${naverMapClientId}&submodules=geocoder`;
   script.async = true;
   script.onload = renderApp;
   document.head.appendChild(script);
