@@ -1,7 +1,5 @@
-
 import os
 from typing import List, Optional
-
 import certifi
 import motor.motor_asyncio
 from bson import ObjectId
@@ -48,7 +46,6 @@ if not origins:
     origins = ["http://localhost:4000",
                "http://localhost:1234"]  # Default origins
 
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,  # origins 리스트에 있는 도메인에서 오는 요청을 허용
@@ -89,6 +86,8 @@ class JobPostModel(BaseModel):
     envStndWalk: str
     # envHandwork: str
     reqLicens: Optional[str]
+    latitude: str
+    longitude: str
 
 
 class JobPostCollection(BaseModel):
