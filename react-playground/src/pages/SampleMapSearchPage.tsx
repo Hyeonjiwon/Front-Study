@@ -1,6 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import JobPostMap from "../components/JobPostMap";
+import { JobPostDataType } from "../types/JobPostDataType";
 
 const SampleMapSearchPage = () => {
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [jobPostData, setJobPostData] = useState<JobPostDataType[]>([]);
+
   useEffect(() => {
     const mapDiv = document.getElementById("map") as HTMLElement;
     const map = new window.naver.maps.Map(mapDiv, {
@@ -12,54 +17,50 @@ const SampleMapSearchPage = () => {
       position: new window.naver.maps.LatLng(37.5665, 126.978),
       map: map,
     });
+
+    let jobPost = [
+      {
+        _id: "1",
+        title: "Sample Location 1",
+        address: { area: "중구", fullAddress: "서울특별시 중구 세종대로 110" },
+        lat: 37.5665,
+        lng: 126.978,
+      },
+      {
+        _id: "2",
+        title: "Sample Location 2",
+        address: { area: "종로구", fullAddress: "서울특별시 종로구 종로 1" },
+        lat: 37.5702,
+        lng: 126.982,
+      },
+      {
+        _id: "3",
+        title: "Sample Location 3",
+        address: {
+          area: "종로구",
+          fullAddress: "서울특별시 종로구 청계천로 1",
+        },
+        lat: 37.5719,
+        lng: 126.976,
+      },
+    ];
+
+    setJobPostData(jobPost);
+
+    setSearchKeyword("서울시 마포구");
   }, []);
+
+  // 초기 좌표 설정 (전체 지도 보기용)
+  const initialCoordinates = { latitude: 37.5665, longitude: 126.978 };
 
   return (
     <>
       <h1>지도</h1>
-      <div id="map" style={{ width: "100%", height: "100vh" }} />
+      {/* <div id="map" style={{ width: "100%", height: "100vh" }} /> */}
+      <br></br>
+      <JobPostMap coordinates={initialCoordinates} jobPostData={jobPostData} />
     </>
   );
 };
-
-// interface Coordinates {
-//   latitude: number;
-//   longitude: number;
-// }
-
-// const SampleMapSearchPage = () => {
-//   const [coordinates, setCoordinates] = useState<Coordinates | null>({
-//     latitude: 37.5665, // 서울의 위도
-//     longitude: 126.978, // 서울의 경도
-//   });
-
-//   useEffect(() => {
-//     // 실제 API 호출로 좌표를 가져올 경우:
-//     /*
-//     axios.get('/api/map-data')
-//       .then(response => {
-//         setCoordinates({
-//           latitude: response.data.latitude,
-//           longitude: response.data.longitude,
-//         });
-//       })
-//       .catch(error => {
-//         console.error('지도 데이터 가져오기 실패:', error);
-//       });
-//     */
-//   }, []);
-
-//   if (coordinates === null) {
-//     return <div>위치 데이터 로딩 중...</div>;
-//   }
-
-//   return (
-//     <div style={{ padding: 20 }}>
-//       <h1>네이버 지도</h1>
-//       {/* <NaverMap coordinates={coordinates} /> */}
-//       <div id="map" style={{ width: "100%", height: "500px" }}></div>
-//     </div>
-//   );
-// };
 
 export default SampleMapSearchPage;
