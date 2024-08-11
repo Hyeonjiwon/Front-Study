@@ -6,6 +6,9 @@ import { JobPostDataType } from "../types/JobPostDataType";
 const SampleMapSearchPage = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [jobPostData, setJobPostData] = useState<JobPostDataType[]>([]);
+  const [sortedjobPostData, setSortedjobPostData] = useState<JobPostDataType[]>(
+    []
+  );
 
   useEffect(() => {
     // API 호출 함수
@@ -16,7 +19,7 @@ const SampleMapSearchPage = () => {
 
         // 받아온 데이터를 원하는 형식으로 변환
         const transformedData = data["job_posts"].map((item: any) => ({
-          _id: item.id,
+          id: item.id,
           title: item.busplaName,
           address: { area: item.compAddr, fullAddress: item.compAddr },
           lat: parseFloat(item.latitude),
@@ -40,7 +43,11 @@ const SampleMapSearchPage = () => {
     <>
       <h1>지도</h1>
       <br></br>
-      <JobPostMap coordinates={initialCoordinates} jobPostData={jobPostData} />
+      <JobPostMap
+        coordinates={initialCoordinates}
+        jobPostData={jobPostData}
+        setSortedjobPostData={setSortedjobPostData}
+      />
     </>
   );
 };
