@@ -12,7 +12,8 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "typeRoots": ["./node_modules/@types", "@types"]
   },
-  "include": ["src", "src/types/naver-maps.d.ts", "styled-components"]
+  "include": ["src", "styled-components"]
 }

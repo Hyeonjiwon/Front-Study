@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { JobPostDataType } from "../types/JobPostDataType";
+import CustomMapMarker from "./map/CustomMapMarker";
 
 interface Coordinates {
   latitude: number;
@@ -111,6 +112,15 @@ const FieldMap = ({
         map: map,
         title: title,
         clickable: true,
+        icon: {
+          //html element를 반환하는 CustomMapMarker 컴포넌트 할당
+          content: CustomMapMarker({
+            title: title,
+            windowWidth: viewportWidth,
+          }),
+          size: new naver.maps.Size(38, 58),
+          anchor: new naver.maps.Point(19, 58),
+        },
       });
       newMarker.setTitle(title);
       markerListRef.current.push(newMarker); // 마커를 배열에 추가
