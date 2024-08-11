@@ -24,7 +24,8 @@ const FieldMap = ({
   const { naver } = window;
   let map: naver.maps.Map;
   const [newMap, setNewMap] = useState<naver.maps.Map | null>(null);
-  const createMarkerList: naver.maps.Marker[] = []; //마커를 담을 배열
+  // const createMarkerList: naver.maps.Marker[] = []; //마커를 담을 배열
+  const markerListRef = useRef<naver.maps.Marker[]>([]); // 마커를 담을 배열을 useRef로 관리
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -65,42 +66,102 @@ const FieldMap = ({
       scaleControl: false,
     };
 
-    //설정해놓은 옵션을 바탕으로 지도 생성
     map = new window.naver.maps.Map(mapRef.current, mapOptions);
     setNewMap(map);
-    //마커 생성 함수 호출
-    addMarkers();
+    addMarkers(map);
   }, [coordinates, jobPostData, viewportWidth]);
 
-  const addMarkers = () => {
-    if (coordinates) {
-      addMarker("1", "init", coordinates.latitude, coordinates.longitude);
+  useEffect(() => {
+    if (newMap) {
+      console.log("!!", markerListRef);
+      const MoveEventListner = naver.maps.Event.addListener(
+        newMap,
+        "idle",
+        idleHandler
+      );
+      return () => {
+        naver.maps.Event.removeListener(MoveEventListner);
+      };
     }
+  }, [newMap]);
+
+  const addMarkers = (map: naver.maps.Map) => {
+    // 기존 마커를 제거하고 리스트 초기화
+    markerListRef.current.forEach((marker) => marker.setMap(null));
+    markerListRef.current = [];
+
     jobPostData.forEach((data) => {
       const { id, title, lat, lng } = data;
-      addMarker(id, title, lat, lng);
+      addMarker(map, id, title, lat, lng);
     });
+
+    console.log("Markers added:", markerListRef.current);
   };
 
-  const addMarker = (id: string, title: string, lat: number, lng: number) => {
+  const addMarker = (
+    map: naver.maps.Map,
+    id: string,
+    title: string,
+    lat: number,
+    lng: number
+  ) => {
     try {
-      var newMarker = new naver.maps.Marker({
+      const newMarker = new naver.maps.Marker({
         position: new naver.maps.LatLng(lat, lng),
-        map,
+        map: map,
         title: title,
         clickable: true,
       });
       newMarker.setTitle(title);
-      createMarkerList.push(newMarker);
+      markerListRef.current.push(newMarker); // 마커를 배열에 추가
       naver.maps.Event.addListener(newMarker, "click", () =>
         markerClickHandler(id)
       );
-    } catch (e) {}
+    } catch (e) {
+      console.error(e);
+    }
   };
 
-  //마커를 클릭 이벤트 핸들러
+  const updateMarkers = () => {
+    const map = newMap;
+    const markers = markerListRef.current;
+
+    if (!map) return;
+
+    const mapBounds = map.getBounds();
+    let marker: naver.maps.Marker, position;
+
+    // 마커의 위치를 position 변수에 저장
+    for (let i = 0; i < markers.length; i++) {
+      marker = markers[i];
+      position = marker.getPosition();
+
+      // mapBounds와 비교하며 마커가 현재 화면에 보이는 영역에 있는지 확인
+      if (mapBounds.hasPoint(position)) {
+        showMarker(map, marker);
+      } else {
+        hideMarker(marker);
+      }
+    }
+  };
+
+  const showMarker = (map: naver.maps.Map, marker: naver.maps.Marker) => {
+    if (marker.getMap()) return;
+    marker.setMap(map);
+  };
+
+  const hideMarker = (marker: naver.maps.Marker) => {
+    if (!marker.getMap()) return;
+    marker.setMap(null);
+  };
+
+  //마커 클릭 이벤트 핸들러
   const markerClickHandler = (id: string) => {
     console.log("Marker clicked!");
+  };
+
+  const idleHandler = () => {
+    updateMarkers();
   };
 
   return (
