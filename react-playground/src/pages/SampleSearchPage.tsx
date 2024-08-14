@@ -90,12 +90,15 @@ const SampleSearchPage: React.FC = () => {
       );
 
       // 검색 조건을 이용하여 MongoDB에서 데이터를 조회하는 API 엔드포인트 호출
-      const response = await axios.get("http://localhost:8000/job_posts/data", {
-        params: adjustedSearchCriteria,
-      });
+      const response = await axios.get(
+        "http://localhost:8000/job_posts/search",
+        {
+          params: adjustedSearchCriteria,
+        }
+      );
 
       // API에서 받아온 데이터를 state에 저장
-      setJobPosts(response.data);
+      setJobPosts(response.data.job_posts);
     } catch (error) {
       console.error("Error searching data:", error);
     }
