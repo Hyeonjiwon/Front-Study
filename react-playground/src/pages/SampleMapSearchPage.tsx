@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import JobPostMap from "../components/JobPostMap";
+import JobPostMap from "../components/map/JobPostMap";
 import { JobPostDataType } from "../types/JobPostDataType";
+import Header from "../components/common/Header";
+import { styled } from "styled-components";
 
 const SampleMapSearchPage = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -41,15 +43,26 @@ const SampleMapSearchPage = () => {
 
   return (
     <>
-      <h1>지도</h1>
-      <br></br>
-      <JobPostMap
-        coordinates={initialCoordinates}
-        jobPostData={jobPostData}
-        setSortedjobPostData={setSortedjobPostData}
-      />
+      <Header></Header>
+      <StyledBody>
+        <h1>지도</h1>
+        <br></br>
+        <JobPostMap
+          coordinates={initialCoordinates}
+          jobPostData={jobPostData}
+          setSortedjobPostData={setSortedjobPostData}
+        />
+      </StyledBody>
     </>
   );
 };
 
 export default SampleMapSearchPage;
+
+const StyledBody = styled.div`
+  width: 100%;
+  max-width: 120rem;
+  height: 100%;
+  min-height: 100vh;
+  margin: auto;
+`;

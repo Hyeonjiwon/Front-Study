@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { JobPostDataType } from "../types/JobPostDataType";
-import CustomMapMarker from "./map/CustomMapMarker";
+import { JobPostDataType } from "../../types/JobPostDataType";
+import CustomMapMarker from "./CustomMapMarker";
 
 interface Coordinates {
   latitude: number;
@@ -189,6 +189,6 @@ const StyledMapContainer = styled.div`
 
 const StyledMap = styled.div`
   width: 100%;
-  height: 47rem;
+  height: 30rem;
   margin: 0 auto;
 `;

@@ -6,10 +6,10 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DynamicTable from "../components/DynamicTable";
+import Header from "../components/common/Header";
 
 interface JobPost {
   busplaName: string;
@@ -178,41 +178,44 @@ const SampleSearchPage: React.FC = () => {
   ];
 
   return (
-    <div style={{ padding: 20 }}>
-      {option.map((opt) => (
-        <FormControl
-          key={opt.id}
-          variant="outlined"
-          style={{ minWidth: 200, marginBottom: 20, marginRight: 20 }}
-        >
-          <InputLabel>{opt.label}</InputLabel>
-          <Select
-            name={opt.id}
-            value={searchCriteria[opt.id as keyof SearchCriteria] || ""}
-            onChange={handleChange}
-            label={opt.label}
+    <>
+      <Header></Header>
+      <div style={{ padding: 20 }}>
+        {option.map((opt) => (
+          <FormControl
+            key={opt.id}
+            variant="outlined"
+            style={{ minWidth: 200, marginBottom: 20, marginRight: 20 }}
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {opt.values.map((value) => (
-              <MenuItem key={value} value={value}>
-                {value}
+            <InputLabel>{opt.label}</InputLabel>
+            <Select
+              name={opt.id}
+              value={searchCriteria[opt.id as keyof SearchCriteria] || ""}
+              onChange={handleChange}
+              label={opt.label}
+            >
+              <MenuItem value="">
+                <em>None</em>
               </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      ))}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleSearch}
-        style={{ marginBottom: 20 }}
-      >
-        Search
-      </Button>
-      <DynamicTable columns={columns} data={jobPosts} />
-    </div>
+              {opt.values.map((value) => (
+                <MenuItem key={value} value={value}>
+                  {value}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        ))}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSearch}
+          style={{ marginBottom: 20 }}
+        >
+          Search
+        </Button>
+        <DynamicTable columns={columns} data={jobPosts} />
+      </div>
+    </>
   );
 };
 
