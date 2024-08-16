@@ -1,13 +1,16 @@
+import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
 import Main from "./pages/Main";
 import SampleComponent from "./pages/SampleComponentPage";
 import SampleLoginPage from "./pages/SampleLoginPage";
 import SampleMapSearchPage from "./pages/SampleMapSearchPage";
 import SampleSerchPage from "./pages/SampleSearchPage";
+import theme from "./theme";
 
 const App = () => {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Router>
         <div>
           <Routes>
@@ -19,7 +22,7 @@ const App = () => {
           </Routes>
         </div>
       </Router>
-    </>
+    </ThemeProvider>
   );
 };
 
