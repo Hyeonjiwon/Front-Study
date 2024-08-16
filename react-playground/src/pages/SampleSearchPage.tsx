@@ -72,8 +72,26 @@ const SampleSearchPage = () => {
             },
           }
         );
+
+        response.data.job_posts.forEach((jobPost: JobPost) => {
+          jobPost.compAddr =
+            jobPost.compAddr.split(" ")[0] +
+            " " +
+            jobPost.compAddr.split(" ")[1];
+
+          jobPost.envBothHands = jobPost.envBothHands.substring(
+            0,
+            jobPost.envBothHands.indexOf("작")
+          );
+
+          jobPost.envLiftPower = jobPost.envLiftPower.substring(
+            0,
+            jobPost.envLiftPower.indexOf("g") + 1
+          );
+        });
+
         setJobPosts(response.data.job_posts);
-        setTotalItemsCount(response.data.total_count); // 총 아이템 수를 서버에서 받아옴
+        setTotalItemsCount(response.data.total_count);
         setLoading(false);
       } catch (err) {
         if (axios.isAxiosError(err) && err.message) {
@@ -118,16 +136,76 @@ const SampleSearchPage = () => {
   if (error) return <div>Error: {error}</div>;
 
   const columns = [
-    { id: "busplaName", label: "사업장명" },
-    { id: "compAddr", label: "사업장 주소" },
-    { id: "empType", label: "고용 형태" },
-    { id: "jobNm", label: "모집 직종" },
-    { id: "salaryType", label: "임금 형태" },
-    { id: "salary", label: "임금" },
-    { id: "envBothHands", label: "양손" },
-    { id: "envEyesight", label: "시력" },
-    { id: "envLiftPower", label: "드는힘" },
-    { id: "termDate", label: "모집 기간" },
+    {
+      id: "busplaName",
+      label: "사업장명",
+      minWidth: "80px",
+      colAlign: "center",
+      rowAlign: "left",
+    },
+    {
+      id: "compAddr",
+      label: "사업장 주소",
+      minWidth: "130px",
+      colAlign: "center",
+      rowAlign: "left",
+    },
+    {
+      id: "empType",
+      label: "고용 형태",
+      minWidth: "100px",
+      colAlign: "center",
+      rowAlign: "center",
+    },
+    {
+      id: "jobNm",
+      label: "모집 직종",
+      minWidth: "120px",
+      colAlign: "center",
+      rowAlign: "left",
+    },
+    {
+      id: "salaryType",
+      label: "임금 형태",
+      minWidth: "100px",
+      colAlign: "center",
+      rowAlign: "center",
+    },
+    {
+      id: "salary",
+      label: "임금",
+      minWidth: "90px",
+      colAlign: "center",
+      rowAlign: "left",
+    },
+    {
+      id: "envBothHands",
+      label: "양손",
+      minWidth: "60px",
+      colAlign: "center",
+      rowAlign: "left",
+    },
+    {
+      id: "envEyesight",
+      label: "시력",
+      minWidth: "60px",
+      colAlign: "center",
+      rowAlign: "left",
+    },
+    {
+      id: "envLiftPower",
+      label: "드는힘",
+      minWidth: "60px",
+      colAlign: "center",
+      rowAlign: "left",
+    },
+    {
+      id: "termDate",
+      label: "모집 기간",
+      minWidth: "220px",
+      colAlign: "center",
+      rowAlign: "center",
+    },
   ];
 
   return (
