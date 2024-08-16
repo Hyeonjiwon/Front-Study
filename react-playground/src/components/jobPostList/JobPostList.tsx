@@ -1,13 +1,9 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
-import DynamicTable from "../DynamicTable";
+import DynamicTable from "./DynamicTable";
 import styled from "styled-components";
 import { Pagination } from "@mui/material";
-
-interface Column {
-  id: string;
-  label: string;
-}
+import { Column } from "../../types";
 
 interface JobPostListProps {
   columns: Column[];
@@ -53,4 +49,5 @@ export default JobPostList;
 
 const StyledPaper = styled(Paper)`
   margin-bottom: 1rem;
+  elevation: 0;
 `;

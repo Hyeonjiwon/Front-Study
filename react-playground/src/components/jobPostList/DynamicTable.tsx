@@ -8,14 +8,7 @@ import {
   TableRow,
 } from "@mui/material";
 import styled from "styled-components";
-
-interface Column {
-  id: string;
-  label: string;
-  minWidth?: number;
-  colAlign: "inherit" | "left" | "center" | "right" | "justify";
-  rowAlign: "inherit" | "left" | "center" | "right" | "justify";
-}
+import { Column } from "../../types";
 
 interface DynamicTableProps {
   columns: Column[];
@@ -24,7 +17,7 @@ interface DynamicTableProps {
 
 const DynamicTable = ({ columns, data }: DynamicTableProps) => {
   return (
-    <StyledTableContainer component={Paper} elevation={0}>
+    <StyledTableContainer>
       <StyledTable>
         <StyledTableHead>
           <StyledTableRow>
