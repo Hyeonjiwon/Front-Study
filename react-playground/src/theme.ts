@@ -8,6 +8,12 @@ const theme = createTheme({
     secondary: {
       main: "#f50057",
     },
+    text: {
+      primary: "#000000", // 기본 글자 색상 설정
+    },
+  },
+  typography: {
+    fontFamily: '"Noto Sans CJK KR", sans-serif',
   },
 });
 
