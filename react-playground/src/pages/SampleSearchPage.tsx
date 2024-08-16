@@ -122,7 +122,7 @@ const SampleSearchPage = () => {
     event: React.ChangeEvent<unknown>,
     newPage: number
   ) => {
-    setCurrentPage(newPage + 1); // MUI의 페이지는 0부터 시작하므로 +1
+    setCurrentPage(newPage); // MUI의 페이지는 0부터 시작하므로 +1
   };
 
   const handleRowsPerPageChange = (
