@@ -159,9 +159,6 @@ async def search_job_posts(
     job_posts_cursor = job_post_collection.find(query).skip(start).limit(limit)
     job_posts = await job_posts_cursor.to_list(length=limit)
 
-    logger.debug(f"Query: {query}, Limit: {limit}")
-    logger.debug(f"Total count: {total_count}")
-
     # 응답 구성
     return SearchResponse(
         job_posts=job_posts,
