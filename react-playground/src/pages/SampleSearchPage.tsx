@@ -1,10 +1,10 @@
-import { SelectChangeEvent } from "@mui/material";
-import Button from "@mui/material/Button";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Header from "../components/common/Header";
+import axios from "axios";
+import JobPostList from "../components/jobPostList/JobPostList";
 import SearchOptions from "../components/common/SearchOptions";
-import DynamicTable from "../components/DynamicTable";
+import Button from "@mui/material/Button";
+import Header from "../components/common/Header";
+import { SelectChangeEvent } from "@mui/material";
 
 interface JobPost {
   busplaName: string;
@@ -42,13 +42,8 @@ interface SearchCriteria {
   envBothHands: string;
 }
 
-const SampleSearchPage: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [jobPosts, setJobPosts] = useState<JobPost[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const [searchCriteria, setSearchCriteria] = useState({
+const SampleSearchPage = () => {
+  const [searchCriteria, setSearchCriteria] = useState<SearchCriteria>({
     compAddr: "",
     jobNm: "",
     empType: "",
@@ -56,108 +51,71 @@ const SampleSearchPage: React.FC = () => {
     envLiftPower: "",
     envBothHands: "",
   });
+  const [jobPosts, setJobPosts] = useState<JobPost[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+  const [totalItemsCount, setTotalItemsCount] = useState<number>(0);
 
   useEffect(() => {
-    // MongoDB에서 데이터를 조회하는 API 엔드포인트 호출
-    axios
-      .get("http://127.0.0.1:8000/job_posts/")
-      .then((response) => {
-        setJobPosts(response.data.job_posts); // API에서 받아온 데이터를 state에 저장
+    const fetchJobPosts = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/job_posts/search",
+          {
+            params: {
+              ...searchCriteria,
+              start: (currentPage - 1) * itemsPerPage,
+              limit: itemsPerPage,
+            },
+          }
+        );
+        setJobPosts(response.data.job_posts);
+        setTotalItemsCount(response.data.total_count); // 총 아이템 수를 서버에서 받아옴
         setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
+      } catch (err) {
+        if (axios.isAxiosError(err) && err.message) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
         setLoading(false);
-      });
-  }, []);
+      }
+    };
+
+    fetchJobPosts();
+  }, [searchCriteria, currentPage, itemsPerPage]);
+
+  const handleSearch = () => {
+    setCurrentPage(1); // 검색 시 첫 페이지로 돌아감
+  };
+
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    const { name, value } = event.target;
+    setSearchCriteria((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    newPage: number
+  ) => {
+    setCurrentPage(newPage + 1); // MUI의 페이지는 0부터 시작하므로 +1
+  };
+
+  const handleRowsPerPageChange = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    setItemsPerPage(parseInt(event.target.value as string, 10));
+    setCurrentPage(1); // 페이지당 아이템 수 변경 시 첫 페이지로 돌아감
+  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-
-  const handleSearch = async () => {
-    try {
-      // "None"으로 선택된 항목을 "-"로 변경
-      const adjustedSearchCriteria = Object.fromEntries(
-        Object.entries(searchCriteria).map(([key, value]) => [
-          key,
-          value === "None" ? "-" : value,
-        ])
-      );
-
-      // 검색 조건을 이용하여 MongoDB에서 데이터를 조회하는 API 엔드포인트 호출
-      const response = await axios.get(
-        "http://localhost:8000/job_posts/search",
-        {
-          params: adjustedSearchCriteria,
-        }
-      );
-
-      // API에서 받아온 데이터를 state에 저장
-      setJobPosts(response.data.job_posts);
-    } catch (error) {
-      console.error("Error searching data:", error);
-    }
-  };
-
-  const handleChange = (e: SelectChangeEvent<string>) => {
-    const name = e.target.name as keyof SearchCriteria;
-    setSearchCriteria({
-      ...searchCriteria,
-      [name]: e.target.value as string,
-    });
-  };
-
-  const option = [
-    {
-      id: "compAddr",
-      label: "근무 위치",
-      values: [
-        "서울특별시",
-        "경기도",
-        "강원도",
-        "충청북도",
-        "충청남도",
-        "전라북도",
-        "전라남도",
-        "경상북도",
-        "경상남도",
-        "제주특별자치도",
-      ],
-    },
-    {
-      id: "jobNm",
-      label: "모집 직종",
-      values: ["콜센터 상담원", "IT 개발자", "마케팅 매니저"],
-    },
-    {
-      id: "empType",
-      label: "고용 형태",
-      values: ["상용직", "계약직", "시간제"],
-    },
-    {
-      id: "envEyesight",
-      label: "시력",
-      values: [
-        "일상적 활동 가능",
-        "비교적 큰 인쇄물을 읽을 수 있음",
-        "아주 작은 글씨를 읽을 수 있음",
-      ],
-    },
-    {
-      id: "envLiftPower",
-      label: "드는힘",
-      values: [
-        "5Kg 이내의 물건을 다룰 수 있음",
-        "5~20Kg의 물건을 다룰 수 있음",
-        "20Kg 이상의 물건을 다룰 수 있음",
-      ],
-    },
-    {
-      id: "envBothHands",
-      label: "양손",
-      values: ["양손작업 가능", "한손보조작업 가능", "한손작업 가능"],
-    },
-  ];
 
   const columns = [
     { id: "busplaName", label: "사업장명" },
@@ -174,7 +132,7 @@ const SampleSearchPage: React.FC = () => {
 
   return (
     <>
-      <Header></Header>
+      <Header />
       <div style={{ padding: 20 }}>
         <SearchOptions
           searchCriteria={searchCriteria}
@@ -188,7 +146,15 @@ const SampleSearchPage: React.FC = () => {
         >
           Search
         </Button>
-        <DynamicTable columns={columns} data={jobPosts} />
+        <JobPostList
+          columns={columns}
+          data={jobPosts}
+          currentPage={currentPage}
+          totalItemsCount={totalItemsCount}
+          itemsPerPage={itemsPerPage}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleRowsPerPageChange}
+        />
       </div>
     </>
   );

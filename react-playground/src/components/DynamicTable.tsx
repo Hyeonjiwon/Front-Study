@@ -22,7 +22,7 @@ interface DynamicTableProps {
 
 const DynamicTable = ({ columns, data }: DynamicTableProps) => {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer>
       <Table>
         <TableHead>
           <TableRow>
