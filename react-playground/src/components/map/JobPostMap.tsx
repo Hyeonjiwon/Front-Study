@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { JobPostDataType } from "../../types/JobPostDataType";
+import { JobPostMapDataType } from "../../types/JobPostDataType";
 import CustomMapMarker from "./CustomMapMarker";
 
 interface Coordinates {
@@ -10,9 +10,9 @@ interface Coordinates {
 
 interface JobPostType {
   coordinates: Coordinates;
-  jobPostData: JobPostDataType[];
+  jobPostData: JobPostMapDataType[];
   setSortedjobPostData?: React.Dispatch<
-    React.SetStateAction<JobPostDataType[]>
+    React.SetStateAction<JobPostMapDataType[]>
   >;
 }
 
@@ -74,7 +74,6 @@ const FieldMap = ({
 
   useEffect(() => {
     if (newMap) {
-      console.log("!!", markerListRef);
       const MoveEventListner = naver.maps.Event.addListener(
         newMap,
         "idle",
@@ -95,8 +94,6 @@ const FieldMap = ({
       const { id, title, lat, lng } = data;
       addMarker(map, id, title, lat, lng);
     });
-
-    console.log("Markers added:", markerListRef.current);
   };
 
   const addMarker = (
@@ -174,21 +171,12 @@ const FieldMap = ({
     updateMarkers();
   };
 
-  return (
-    <StyledMapContainer>
-      <StyledMap id="map" ref={mapRef}></StyledMap>
-    </StyledMapContainer>
-  );
+  return <StyledMap id="map" ref={mapRef}></StyledMap>;
 };
 
 export default FieldMap;
 
-const StyledMapContainer = styled.div`
-  position: relative;
-`;
-
 const StyledMap = styled.div`
   width: 100%;
-  height: 30rem;
-  margin: 0 auto;
+  height: 600px;
 `;
