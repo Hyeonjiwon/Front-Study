@@ -1,9 +1,8 @@
-import React from "react";
-import Paper from "@mui/material/Paper";
-import DynamicTable from "./DynamicTable";
-import styled from "styled-components";
 import { Pagination } from "@mui/material";
+import React from "react";
+import styled from "styled-components";
 import { JobPostListColumn } from "../../types/JobPostDataType";
+import DynamicTable from "./DynamicTable";
 
 interface JobPostListProps {
   columns: JobPostListColumn[];
