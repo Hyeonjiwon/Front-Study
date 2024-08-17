@@ -3,10 +3,10 @@ import Paper from "@mui/material/Paper";
 import DynamicTable from "./DynamicTable";
 import styled from "styled-components";
 import { Pagination } from "@mui/material";
-import { Column } from "../../types";
+import { JobPostListColumn } from "../../types/JobPostDataType";
 
 interface JobPostListProps {
-  columns: Column[];
+  columns: JobPostListColumn[];
   data: any[];
   currentPage: number;
   totalItemsCount: number;

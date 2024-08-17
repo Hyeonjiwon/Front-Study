@@ -8,10 +8,10 @@ import {
   TableRow,
 } from "@mui/material";
 import styled from "styled-components";
-import { Column } from "../../types";
+import { JobPostListColumn } from "../../types/JobPostDataType";
 
 interface DynamicTableProps {
-  columns: Column[];
+  columns: JobPostListColumn[];
   data: any[];
 }
 

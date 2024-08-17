@@ -5,7 +5,7 @@ import SearchOptions from "../components/common/SearchOptions";
 import Button from "@mui/material/Button";
 import Header from "../components/common/Header";
 import { SelectChangeEvent } from "@mui/material";
-import { Column } from "../types";
+import { JobPostListColumn } from "../types/JobPostDataType";
 
 interface JobPost {
   busplaName: string;
@@ -136,7 +136,7 @@ const SampleSearchPage = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  const columns: Column[] = [
+  const columns: JobPostListColumn[] = [
     {
       id: "busplaName",
       label: "사업장명",
