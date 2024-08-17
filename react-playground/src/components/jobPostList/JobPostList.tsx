@@ -28,11 +28,9 @@ const JobPostList = ({
 
   return (
     <>
-      <StyledPaper>
-        <StyledDynamicTableContainer>
-          <DynamicTable columns={columns} data={data} />
-        </StyledDynamicTableContainer>
-      </StyledPaper>
+      <StyledDynamicTableContainer>
+        <DynamicTable columns={columns} data={data} />
+      </StyledDynamicTableContainer>
       <PaginationContainer>
         <Pagination
           size="small"
@@ -50,11 +48,6 @@ const JobPostList = ({
 };
 
 export default JobPostList;
-
-const StyledPaper = styled(Paper)`
-  margin-bottom: 1rem;
-  elevation: 0;
-`;
 
 const StyledDynamicTableContainer = styled.div`
   width: 100%;

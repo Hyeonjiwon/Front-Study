@@ -15,6 +15,15 @@ const theme = createTheme({
   typography: {
     fontFamily: '"Noto Sans CJK KR", sans-serif',
   },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
+        },
+      },
+    },
+  },
 });
 
 export default theme;
