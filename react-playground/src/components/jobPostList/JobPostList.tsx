@@ -27,21 +27,25 @@ const JobPostList = ({
   const totalPages = Math.ceil(totalItemsCount / itemsPerPage);
 
   return (
-    <div>
+    <>
       <StyledPaper>
-        <DynamicTable columns={columns} data={data} />
+        <StyledDynamicTableContainer>
+          <DynamicTable columns={columns} data={data} />
+        </StyledDynamicTableContainer>
       </StyledPaper>
-      <Pagination
-        size="small"
-        color="primary"
-        shape="rounded"
-        count={totalPages}
-        page={currentPage}
-        onChange={onPageChange}
-        siblingCount={1} // Number of sibling pages to show
-        boundaryCount={2} // Number of boundary pages to show
-      />
-    </div>
+      <PaginationContainer>
+        <Pagination
+          size="small"
+          color="primary"
+          shape="rounded"
+          count={totalPages}
+          page={currentPage}
+          onChange={onPageChange}
+          siblingCount={1} // Number of sibling pages to show
+          boundaryCount={2} // Number of boundary pages to show
+        />
+      </PaginationContainer>
+    </>
   );
 };
 
@@ -50,4 +54,17 @@ export default JobPostList;
 const StyledPaper = styled(Paper)`
   margin-bottom: 1rem;
   elevation: 0;
+`;
+
+const StyledDynamicTableContainer = styled.div`
+  width: 100%;
+  min-width: 800px;
+  overflow-x: auto;
+`;
+
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
 `;

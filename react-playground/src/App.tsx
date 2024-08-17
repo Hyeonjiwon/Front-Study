@@ -1,5 +1,6 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import GlobalStyle from "./components/style/GlobalStyle";
 import Main from "./pages/Main";
 import SampleComponent from "./pages/SampleComponentPage";
 import SampleLoginPage from "./pages/SampleLoginPage";
@@ -10,6 +11,7 @@ import theme from "./theme";
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyle />
       <CssBaseline />
       <Router>
         <div>
