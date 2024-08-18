@@ -1,5 +1,4 @@
 import {
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -8,14 +7,18 @@ import {
   TableRow,
 } from "@mui/material";
 import styled from "styled-components";
-import { JobPostListColumn } from "../../types/JobPostDataType";
+import {
+  JobPostListColumn,
+  JobPostListData,
+} from "../../types/JobPostDataType";
 
 interface DynamicTableProps {
   columns: JobPostListColumn[];
   data: any[];
+  onRowClick: (jobPost: JobPostListData) => void;
 }
 
-const DynamicTable = ({ columns, data }: DynamicTableProps) => {
+const DynamicTable = ({ columns, data, onRowClick }: DynamicTableProps) => {
   return (
     <StyledTableContainer>
       <StyledTable>
@@ -34,7 +37,7 @@ const DynamicTable = ({ columns, data }: DynamicTableProps) => {
         </StyledTableHead>
         <TableBody>
           {data.map((row, rowIndex) => (
-            <StyledTableRow key={rowIndex}>
+            <StyledTableRow key={rowIndex} onClick={() => onRowClick(row)}>
               {columns.map((column) => (
                 <StyledTableRowCell
                   key={column.id}

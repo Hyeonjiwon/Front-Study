@@ -8,6 +8,7 @@ export interface JobPostMapDataType {
 }
 
 export interface JobPostListData {
+  id: string;
   busplaName: string;
   cntctNo: string;
   compAddr: string;

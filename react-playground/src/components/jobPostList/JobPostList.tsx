@@ -1,7 +1,10 @@
 import { Pagination } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
-import { JobPostListColumn } from "../../types/JobPostDataType";
+import {
+  JobPostListColumn,
+  JobPostListData,
+} from "../../types/JobPostDataType";
 import DynamicTable from "./DynamicTable";
 
 interface JobPostListProps {
@@ -12,6 +15,7 @@ interface JobPostListProps {
   itemsPerPage: number;
   onPageChange: (event: React.ChangeEvent<unknown>, newPage: number) => void;
   onRowsPerPageChange: (event: React.ChangeEvent<{ value: unknown }>) => void;
+  onRowClick: (jobPost: JobPostListData) => void;
 }
 
 const JobPostList = ({
@@ -22,13 +26,14 @@ const JobPostList = ({
   itemsPerPage,
   onPageChange,
   onRowsPerPageChange,
+  onRowClick,
 }: JobPostListProps) => {
   const totalPages = Math.ceil(totalItemsCount / itemsPerPage);
 
   return (
     <>
       <StyledDynamicTableContainer>
-        <DynamicTable columns={columns} data={data} />
+        <DynamicTable columns={columns} data={data} onRowClick={onRowClick} />
       </StyledDynamicTableContainer>
       <PaginationContainer>
         <Pagination

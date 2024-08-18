@@ -10,6 +10,7 @@ import {
   jobPostListColumns,
   SearchCriteria,
 } from "../types/JobPostDataType";
+import { useNavigate } from "react-router-dom";
 
 const SampleSearchPage = () => {
   const [searchCriteria, setSearchCriteria] = useState<SearchCriteria>({
@@ -26,6 +27,8 @@ const SampleSearchPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [totalItemsCount, setTotalItemsCount] = useState<number>(0);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchJobPosts = async () => {
@@ -101,6 +104,10 @@ const SampleSearchPage = () => {
     setCurrentPage(1); // 페이지당 아이템 수 변경 시 첫 페이지로 돌아감
   };
 
+  const handleRowClick = (jobPost: JobPostListData) => {
+    navigate(`/job-post/${jobPost.id}`, { state: { jobPost } });
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -128,6 +135,7 @@ const SampleSearchPage = () => {
           itemsPerPage={itemsPerPage}
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleRowsPerPageChange}
+          onRowClick={handleRowClick}
         />
       </div>
     </>
