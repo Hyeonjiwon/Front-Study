@@ -1,12 +1,13 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import GlobalStyle from "./components/style/GlobalStyle";
+import JobPostDetail from "./pages/JobPostDetailPage";
 import Main from "./pages/Main";
 import SampleComponent from "./pages/SampleComponentPage";
 import SampleLoginPage from "./pages/SampleLoginPage";
 import SampleMapSearchPage from "./pages/SampleMapSearchPage";
 import SampleSerchPage from "./pages/SampleSearchPage";
-import theme from "./theme";
+import theme from "./theme/theme";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Route path="/sample-login" element={<SampleLoginPage />} />
             <Route path="/sample-search" element={<SampleSerchPage />} />
             <Route path="/sample-map" element={<SampleMapSearchPage />} />
+            <Route path="/job-post/:id" element={<JobPostDetail />} />
           </Routes>
         </div>
       </Router>
