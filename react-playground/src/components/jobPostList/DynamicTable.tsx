@@ -29,8 +29,8 @@ const DynamicTable = ({ columns, data, onRowClick }: DynamicTableProps) => {
                 key={column.id}
                 align={column.colAlign || "center"}
                 style={{
-                  width: column.width || "auto",
-                  minWidth: column.width,
+                  width: column.width || "auto", // 설정된 폭을 사용합니다.
+                  minWidth: column.width || "auto", // 최소 폭을 설정합니다.
                 }}
               >
                 {column.label}
@@ -71,6 +71,7 @@ const StyledTableContainer = styled(TableContainer)`
 const StyledTable = styled(Table)`
   width: 100%;
   height: 100%;
+  table-layout: fixed; // 테이블 레이아웃을 고정으로 설정
 `;
 
 const StyledTableHead = styled(TableHead)`
