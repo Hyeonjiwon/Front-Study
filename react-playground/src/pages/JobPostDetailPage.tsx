@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import { JobPostListData } from "../types/JobPostDataType";
 import Header from "../components/common/Header";
 import Rectangle from "../assets/icon/Rectangle.png";
-import JobPostDetail from "../components/jobPostList/JobPostDetail";
+import JobPostDetail from "../components/jobPostDetail/JobPostDetail";
 import styled from "styled-components";
 
 const JobPostDetailPage = () => {
