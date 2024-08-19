@@ -28,7 +28,10 @@ const DynamicTable = ({ columns, data, onRowClick }: DynamicTableProps) => {
               <StyledTableColCell
                 key={column.id}
                 align={column.colAlign || "center"}
-                style={{ minWidth: column.minWidth }}
+                style={{
+                  width: column.width || "auto",
+                  minWidth: column.width,
+                }}
               >
                 {column.label}
               </StyledTableColCell>

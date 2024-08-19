@@ -33,6 +33,8 @@ export interface JobPostListData {
   envStndWalk: string;
   envHandwork: string;
   reqLicens?: string;
+  latitude: number;
+  longitude: number;
 }
 
 export interface SearchCriteria {
@@ -47,7 +49,7 @@ export interface SearchCriteria {
 export interface JobPostListColumn {
   id: string;
   label: string;
-  minWidth?: string;
+  width?: string;
   colAlign: "inherit" | "left" | "center" | "right" | "justify";
   rowAlign: "inherit" | "left" | "center" | "right" | "justify";
 }
@@ -56,70 +58,70 @@ export const jobPostListColumns: JobPostListColumn[] = [
   {
     id: "busplaName",
     label: "사업장명",
-    minWidth: "80px",
+    width: "80px",
     colAlign: "center",
     rowAlign: "left",
   },
   {
     id: "compAddr",
     label: "사업장 주소",
-    minWidth: "130px",
+    width: "130px",
     colAlign: "center",
     rowAlign: "left",
   },
   {
     id: "empType",
     label: "고용 형태",
-    minWidth: "100px",
+    width: "100px",
     colAlign: "center",
     rowAlign: "center",
   },
   {
     id: "jobNm",
     label: "모집 직종",
-    minWidth: "120px",
+    width: "120px",
     colAlign: "center",
     rowAlign: "left",
   },
   {
     id: "salaryType",
     label: "임금 형태",
-    minWidth: "100px",
+    width: "100px",
     colAlign: "center",
     rowAlign: "center",
   },
   {
     id: "salary",
     label: "임금",
-    minWidth: "90px",
+    width: "90px",
     colAlign: "center",
     rowAlign: "left",
   },
   {
     id: "envBothHands",
     label: "양손",
-    minWidth: "60px",
+    width: "60px",
     colAlign: "center",
     rowAlign: "left",
   },
   {
     id: "envEyesight",
     label: "시력",
-    minWidth: "60px",
+    width: "60px",
     colAlign: "center",
     rowAlign: "left",
   },
   {
     id: "envLiftPower",
     label: "드는힘",
-    minWidth: "60px",
+    width: "60px",
     colAlign: "center",
     rowAlign: "left",
   },
   {
     id: "termDate",
     label: "모집 기간",
-    minWidth: "220px",
+    width: "220px",
     colAlign: "center",
     rowAlign: "center",
   },
