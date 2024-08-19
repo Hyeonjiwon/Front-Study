@@ -36,10 +36,6 @@ const Container = styled.div`
   padding: 20px;
   width: 100%;
   box-sizing: border-box;
-
-  @media (max-width: 768px) {
-    padding: 10px;
-  }
 `;
 
 const ImageWrapper = styled.div`
@@ -53,7 +49,7 @@ const StyledImage = styled.img`
   max-width: 100%;
   display: block;
   margin: 0 auto;
-
+  border-radius: 10px;
   @media (max-width: 768px) {
     width: 100%;
   }
