@@ -3,6 +3,7 @@ import { JobPostListData } from "../../types/JobPostDataType";
 import IconLike from "../../assets/icon/ic_like.svg";
 import IconScrap from "../../assets/icon/ic_scrap.svg";
 import Button from "../common/Button";
+import JobPostDetailMap from "../map/JobPostDateilMap";
 
 const JobPostDetail = ({ jobPost }: { jobPost: JobPostListData }) => {
   let preferential = "";
@@ -21,7 +22,7 @@ const JobPostDetail = ({ jobPost }: { jobPost: JobPostListData }) => {
           </Parent>
           <Title>{`[${jobPost.empType}] ${jobPost.jobNm} 모집`}</Title>
           <Group>
-            <Text>{jobPost.compAddr}</Text>
+            <Text>{jobPost.area}</Text>
             <Text>{jobPost.empType}</Text>
             <Text>{jobPost.termDate}</Text>
           </Group>
@@ -77,6 +78,12 @@ const JobPostDetail = ({ jobPost }: { jobPost: JobPostListData }) => {
             <Value>{jobPost.compAddr}</Value>
           </InfoItem>
         </InfoGroup>
+        <JobPostDetailMapContainer>
+          <JobPostDetailMap
+            longitude={jobPost.longitude}
+            latitude={jobPost.latitude}
+          />
+        </JobPostDetailMapContainer>
       </Section>
     </DetailContainer>
   );
@@ -213,4 +220,11 @@ export const Value = styled.div`
   line-height: 150%;
   align-self: stretch;
   position: relative;
+`;
+
+const JobPostDetailMapContainer = styled.div`
+  width: 400px;
+  height: 200px;
+  border-radius: 12px;
+  padding-top: 20px;
 `;
