@@ -77,13 +77,13 @@ const JobPostDetail = ({ jobPost }: { jobPost: JobPostListData }) => {
             <Label>근무 위치</Label>
             <Value>{jobPost.compAddr}</Value>
           </InfoItem>
+          <JobPostDetailMapContainer>
+            <JobPostDetailMap
+              longitude={jobPost.longitude}
+              latitude={jobPost.latitude}
+            />
+          </JobPostDetailMapContainer>
         </InfoGroup>
-        <JobPostDetailMapContainer>
-          <JobPostDetailMap
-            longitude={jobPost.longitude}
-            latitude={jobPost.latitude}
-          />
-        </JobPostDetailMapContainer>
       </Section>
     </DetailContainer>
   );
@@ -226,5 +226,4 @@ const JobPostDetailMapContainer = styled.div`
   width: 400px;
   height: 200px;
   border-radius: 12px;
-  padding-top: 20px;
 `;
