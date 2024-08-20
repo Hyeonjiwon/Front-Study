@@ -28,12 +28,12 @@ const JobPostDetailPage = () => {
 
 export default JobPostDetailPage;
 
-// Styled Components
-
 const Container = styled.div`
+  min-width: 1200px;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding-top: 40px;
+  padding-bottom: 80px;
   width: 100%;
   box-sizing: border-box;
 `;

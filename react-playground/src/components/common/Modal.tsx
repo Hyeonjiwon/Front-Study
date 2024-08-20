@@ -45,8 +45,10 @@ const ModalContent = styled.div`
 `;
 
 const CloseButton = styled.button`
-  background-color: #224a99;
-  color: white;
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  color: #494949;
   border: none;
   padding: 10px;
   border-radius: 5px;
@@ -54,4 +56,5 @@ const CloseButton = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
+  background-color: #f5f5f5;
 `;

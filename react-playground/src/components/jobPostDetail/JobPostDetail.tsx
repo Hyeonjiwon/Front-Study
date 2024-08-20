@@ -26,7 +26,7 @@ const JobPostDetail = ({ jobPost }: { jobPost: JobPostListData }) => {
         <FrameParent>
           <Parent>
             <Text>{jobPost.busplaName}</Text>
-            <Icon small src={IconLike} />
+            <Icon small={"true"} src={IconLike} />
           </Parent>
           <Title>{`[${jobPost.empType}] ${jobPost.jobNm} 모집`}</Title>
           <Group>
@@ -94,7 +94,7 @@ const JobPostDetail = ({ jobPost }: { jobPost: JobPostListData }) => {
         </InfoGroup>
       </Section>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <JobApplicationModalContent />
+        <JobApplicationModalContent onClose={closeModal} />
       </Modal>
     </DetailContainer>
   );
@@ -186,7 +186,7 @@ const ColoredText = styled.div`
   display: inline-block;
 `;
 
-const Icon = styled.img<{ small?: boolean }>`
+const Icon = styled.img<{ small?: string }>`
   width: ${(props) => (props.small ? "24px" : "40px")};
   height: ${(props) => (props.small ? "24px" : "40px")};
 `;
