@@ -1,11 +1,19 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { JobPostListData } from "../../types/JobPostDataType";
 import IconLike from "../../assets/icon/ic_like.svg";
 import IconScrap from "../../assets/icon/ic_scrap.svg";
 import Button from "../common/Button";
 import JobPostDetailMap from "../map/JobPostDateilMap";
+import Modal from "../common/Modal";
+import JobApplicationModalContent from "./JobApplicationPopup";
 
 const JobPostDetail = ({ jobPost }: { jobPost: JobPostListData }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   let preferential = "";
   if (jobPost.reqCareer) preferential += `경력: ${jobPost.reqCareer} / `;
   if (jobPost.reqEduc) preferential += `학력: ${jobPost.reqEduc} / `;
@@ -28,7 +36,7 @@ const JobPostDetail = ({ jobPost }: { jobPost: JobPostListData }) => {
           </Group>
         </FrameParent>
         <BtnParent>
-          <Button>지원하기</Button>
+          <Button onClick={openModal}>지원하기</Button>
           <Icon src={IconScrap} />
           <ColoredText>링크 복사</ColoredText>
         </BtnParent>
@@ -85,14 +93,17 @@ const JobPostDetail = ({ jobPost }: { jobPost: JobPostListData }) => {
           </JobPostDetailMapContainer>
         </InfoGroup>
       </Section>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <JobApplicationModalContent />
+      </Modal>
     </DetailContainer>
   );
 };
 
 export default JobPostDetail;
 
-// 스타일 정의
-export const DetailContainer = styled.div`
+// 스타일 정의 (이전과 동일)
+const DetailContainer = styled.div`
   background: white;
   border-radius: 12px;
   border: 1px solid #c5c5c5;
@@ -100,12 +111,11 @@ export const DetailContainer = styled.div`
   margin-top: 20px;
 `;
 
-export const Section = styled.div`
+const Section = styled.div`
   margin-top: 20px;
 `;
 
-// 전체 컨테이너
-export const HeadContainer = styled.div`
+const HeadContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -116,8 +126,7 @@ export const HeadContainer = styled.div`
   padding-bottom: 60px;
 `;
 
-// 프레임 컨테이너
-export const FrameParent = styled.div`
+const FrameParent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -125,37 +134,32 @@ export const FrameParent = styled.div`
   font-size: 18px;
 `;
 
-// 부모 컨테이너
-export const Parent = styled.div`
+const Parent = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
 `;
 
-// 제목 스타일
-export const Title = styled.div`
+const Title = styled.div`
   font-size: 21px;
   font-weight: 500;
   text-align: left;
 `;
 
-// 그룹 컨테이너
-export const Group = styled.div`
+const Group = styled.div`
   display: flex;
   align-items: center;
   gap: 24px;
 `;
 
-// 버튼 컨테이너
-export const BtnParent = styled.div`
+const BtnParent = styled.div`
   display: flex;
   align-items: center;
   gap: 24px;
   color: #fff;
 `;
 
-// 버튼 스타일
-export const Btn = styled.div`
+const Btn = styled.div`
   width: 300px;
   border-radius: 6px;
   background-color: #224a99;
@@ -167,14 +171,12 @@ export const Btn = styled.div`
   box-sizing: border-box;
 `;
 
-// 텍스트 스타일
-export const Text = styled.div`
+const Text = styled.div`
   line-height: 150%;
   font-weight: 500;
 `;
 
-// 강조된 텍스트 스타일
-export const ColoredText = styled.div`
+const ColoredText = styled.div`
   width: 140px;
   font-size: 18px;
   line-height: 150%;
@@ -184,38 +186,33 @@ export const ColoredText = styled.div`
   display: inline-block;
 `;
 
-// 아이콘 스타일
-export const Icon = styled.img<{ small?: boolean }>`
+const Icon = styled.img<{ small?: boolean }>`
   width: ${(props) => (props.small ? "24px" : "40px")};
   height: ${(props) => (props.small ? "24px" : "40px")};
 `;
 
-// 정보 그룹
-export const InfoGroup = styled.div`
+const InfoGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 40px;
   width: 100%;
 `;
 
-// 정보 항목
-export const InfoItem = styled.div`
+const InfoItem = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6px;
   width: 100%;
 `;
 
-// 라벨 스타일
-export const Label = styled.div`
+const Label = styled.div`
   font-size: 16px;
   line-height: 150%;
   font-weight: 500;
   align-self: stretch;
 `;
 
-// 값 스타일
-export const Value = styled.div`
+const Value = styled.div`
   font-size: 16px;
   line-height: 150%;
   align-self: stretch;
