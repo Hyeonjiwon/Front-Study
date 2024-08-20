@@ -35,6 +35,7 @@ export interface JobPostListData {
   reqLicens?: string;
   latitude: number;
   longitude: number;
+  area: string;
 }
 
 export interface SearchCriteria {
@@ -63,7 +64,7 @@ export const jobPostListColumns: JobPostListColumn[] = [
     rowAlign: "left",
   },
   {
-    id: "compAddr",
+    id: "area",
     label: "사업장 주소",
     width: "140px",
     colAlign: "center",

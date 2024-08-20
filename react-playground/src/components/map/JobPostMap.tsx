@@ -16,7 +16,7 @@ interface JobPostType {
   >;
 }
 
-const FieldMap = ({
+const JobPostMap = ({
   coordinates,
   jobPostData,
   setSortedjobPostData,
@@ -174,7 +174,7 @@ const FieldMap = ({
   return <StyledMap id="map" ref={mapRef}></StyledMap>;
 };
 
-export default FieldMap;
+export default JobPostMap;
 
 const StyledMap = styled.div`
   width: 100%;

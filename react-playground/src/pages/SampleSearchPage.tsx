@@ -45,7 +45,7 @@ const SampleSearchPage = () => {
         const processedData = data.job_posts.map(
           (jobPost: JobPostListData) => ({
             ...jobPost,
-            compAddr:
+            area:
               jobPost.compAddr.split(" ")[0] +
               " " +
               jobPost.compAddr.split(" ")[1],
