@@ -102,7 +102,6 @@ const JobPostDetail = ({ jobPost }: { jobPost: JobPostListData }) => {
 
 export default JobPostDetail;
 
-// 스타일 정의 (이전과 동일)
 const DetailContainer = styled.div`
   background: white;
   border-radius: 12px;
@@ -157,18 +156,6 @@ const BtnParent = styled.div`
   align-items: center;
   gap: 24px;
   color: #fff;
-`;
-
-const Btn = styled.div`
-  width: 300px;
-  border-radius: 6px;
-  background-color: #224a99;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 60px;
-  box-sizing: border-box;
 `;
 
 const Text = styled.div`
