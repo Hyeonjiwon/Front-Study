@@ -6,6 +6,7 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
+import styled from "styled-components";
 
 interface SearchCriteria {
   compAddr: string;
@@ -64,48 +65,63 @@ const SearchOptions = ({
     {
       id: "envLiftPower",
       label: "드는힘",
-      values: [
-        "5Kg 이내의 물건을 다룰 수 있음",
-        "5~20Kg의 물건을 다룰 수 있음",
-        "20Kg 이상의 물건을 다룰 수 있음",
-      ],
+      values: ["5Kg 이내", "5~20Kg", "20Kg 이상"],
     },
     {
       id: "envBothHands",
       label: "양손",
-      values: ["양손작업 가능", "한손보조작업 가능", "한손작업 가능"],
+      values: ["양손작업", "한손보조작업", "한손작업"],
     },
   ];
 
   return (
     <>
-      {options.map((opt) => (
-        <FormControl
-          key={opt.id}
-          variant="outlined"
-          style={{ minWidth: 200, marginBottom: 20, marginRight: 20 }}
-        >
-          <InputLabel id={`${opt.id}-label`}>{opt.label}</InputLabel>
-          <Select
-            name={opt.id}
-            value={searchCriteria[opt.id as keyof SearchCriteria] || ""}
-            onChange={handleChange}
-            label={opt.label}
-            labelId={`${opt.id}-label`} // labelId를 추가하여 InputLabel과 연결
+      <Container>
+        {options.map((opt) => (
+          <StyledFormControl
+            key={opt.id}
+            sx={{ m: 1, minWidth: 120 }}
+            size="small"
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {opt.values.map((value) => (
-              <MenuItem key={value} value={value}>
-                {value}
+            <InputLabel id={`${opt.id}-label`}>{opt.label}</InputLabel>
+            <Select
+              name={opt.id}
+              value={searchCriteria[opt.id as keyof SearchCriteria] || ""}
+              onChange={handleChange}
+              label={opt.label}
+              labelId={`${opt.id}-label`}
+            >
+              <MenuItem value="">
+                <em>None</em>
               </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      ))}
+              {opt.values.map((value) => (
+                <MenuItem key={value} value={value}>
+                  {value}
+                </MenuItem>
+              ))}
+            </Select>
+          </StyledFormControl>
+        ))}
+      </Container>
     </>
   );
 };
 
 export default SearchOptions;
+
+const Container = styled.div`
+  width: 1040px;
+  margin-bottom: 40px;
+  min-width: 1040px;
+`;
+
+const StyledFormControl = styled(FormControl)`
+  min-width: 100px;
+  flex-grow: 1;
+  height: 40px;
+  marin-left: 0;
+
+  .MuiInputBase-root {
+    height: 40px;
+  }
+`;

@@ -12,6 +12,7 @@ import {
   JobPostMapDataType,
   SearchCriteria,
 } from "../types/JobPostDataType";
+import { useNavigate } from "react-router-dom";
 
 const SampleMapSearchPage = () => {
   const [searchCriteria, setSearchCriteria] = useState<SearchCriteria>({
@@ -35,6 +36,8 @@ const SampleMapSearchPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [totalItemsCount, setTotalItemsCount] = useState<number>(0);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // API 호출 함수
@@ -139,42 +142,81 @@ const SampleMapSearchPage = () => {
     setCurrentPage(1); // 페이지당 아이템 수 변경 시 첫 페이지로 돌아감
   };
 
+  const handleRowClick = (jobPost: JobPostListData) => {
+    navigate(`/job-post/${jobPost.id}`, { state: { jobPost } });
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <>
       <Header></Header>
-      <StyledMapContanier>
-        <JobPostMap
-          coordinates={initialCoordinates}
-          jobPostData={jobPostMapData}
-          setSortedjobPostData={setSortedjobPostMapData}
+      <Container>
+        <StyledMapContanier>
+          <JobPostMap
+            coordinates={initialCoordinates}
+            jobPostData={jobPostMapData}
+            setSortedjobPostData={setSortedjobPostMapData}
+          />
+        </StyledMapContanier>
+        <SearchOptions
+          searchCriteria={searchCriteria}
+          handleChange={handleChange}
         />
-      </StyledMapContanier>
-      <SearchOptions
-        searchCriteria={searchCriteria}
-        handleChange={handleChange}
-      />
-      <JobPostList
-        columns={jobPostListColumns}
-        data={jobPosts}
-        currentPage={currentPage}
-        totalItemsCount={totalItemsCount}
-        itemsPerPage={itemsPerPage}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleRowsPerPageChange}
-      />
+        <div>
+          <StyledListHeader>
+            <Text>검색결과</Text>
+            <SelectBox>tt</SelectBox>
+          </StyledListHeader>
+          <JobPostList
+            columns={jobPostListColumns}
+            data={jobPosts}
+            currentPage={currentPage}
+            totalItemsCount={totalItemsCount}
+            itemsPerPage={itemsPerPage}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleRowsPerPageChange}
+            onRowClick={handleRowClick}
+          />
+        </div>
+      </Container>
     </>
   );
 };
 
 export default SampleMapSearchPage;
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 1040px;
+  max-width: 1040px;
+`;
+
 const StyledMapContanier = styled.div`
   padding-top: 60px;
   padding-bottom: 40px;
   width: 100%;
   max-width: 120rem;
+  min-width: 1040px;
   height: 100%;
 `;
+
+const StyledListHeader = styled.div`
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  text-align: left;
+  font-size: 21px;
+  color: #191919;
+  margin-bottom: 24px;
+`;
+
+const Text = styled.div``;
+
+const SelectBox = styled.div``;
